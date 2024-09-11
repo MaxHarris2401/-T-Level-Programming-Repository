@@ -1,0 +1,18 @@
+1) Performs addition of 1+1
+2) Performs concatination of the strings "1" and "1" making "11"
+3) assigns 3 to the variable A as a constant
+4) means that variable A is equal to 3
+5) Means A is not equal to 3
+6) Imports date time library
+7) Returns the date 2018-07-10 at 12 o'clock at night
+8) Returns the afformentioned date as a string
+9) Returns the date as Tuesday 10 Jul 2018
+10) imports math library
+11) performs math operator to calculate pi.
+12) performs 5 to the power of 2
+13) performs 5 to the power of 3
+14) asks the user to input a number
+I. = means that variable is assigned to what comes after the sign, while == means that equal to
+II. Powers
+III. Doesn't cast the data inputted to be a number and you can't add a string and an integer so it throws an error
+#   mynum = int(input("enter a number))

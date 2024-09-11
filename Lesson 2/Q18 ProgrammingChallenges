@@ -1,0 +1,8 @@
+FirstInt=int(input("Enter first integer: "))
+SecondInt=int(input("Enter second integer: "))
+if FirstInt <=0 and SecondInt >=0:
+    print("True")
+elif FirstInt >=0 and SecondInt <=0:
+    print("True")
+else:
+    print("False")

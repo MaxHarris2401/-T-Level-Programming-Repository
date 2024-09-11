@@ -1,0 +1,3 @@
+In order to use time, you need to import datetime library
+    datetime.datetime.now() - gets todays datetime
+    print(datetime.datetime.now().strftime("%H:%M:%S")) - prints the whole date and time
