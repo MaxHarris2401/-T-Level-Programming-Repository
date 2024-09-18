@@ -1,8 +1,6 @@
-count=-1
+count=0
 for x in range(10):
-    print("\n")
-    print(x, end =" ")
     count=count+1
-    for j in range(count):
+    for x in range(count):
         print(x, end =" ")
     print("\n")
