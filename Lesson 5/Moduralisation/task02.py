@@ -37,6 +37,7 @@ def FindLetterValue():
 def FindWordValue(Word):
     Word = list(Word)
     ValueLetter = 0
+    Invalid = False
     for letter in Word:
         match letter:
             case letter if letter in Values.LetterVal1:
@@ -54,7 +55,9 @@ def FindWordValue(Word):
             case letter if letter in Values.LetterVal10:
                 ValueLetter=ValueLetter+10
             case _:
-                print("Word does not qualify")
+                Invalid = True
+    if Invalid == True:
+        print("aaa")
     return ValueLetter
 def GetRandomLetters():
     RandomLetters = random.sample(Alphabet, 7)
@@ -69,13 +72,18 @@ def PlayGame():
     P2Name = input("Player 2 What is your name?\n")
     Player = 1
     RandomLetters = GetRandomLetters()
+    print(P1Name+", Your turn!")
     while P1Turns != 3 and P2Turns != 3:
         Word = input()
+        Invalid = False
         for letter in Word:
             if letter in RandomLetters:
                 Score = FindWordValue(Word)
             else:
-                print("This word has letters not from the list")
+                Invalid = True
+                Score = 0
+        if Invalid == True:
+           print("This word contains letters that are not from the list")
         if Player == 1:
             P1Score = P1Score + Score
             print("This word is worth",str(Score),"points")
@@ -84,26 +92,27 @@ def PlayGame():
             print("This word is worth",str(Score),"points")
         if Player == 1:
             P1Turns = P1Turns+1
-            print("Player 2, Your turn")
+            print(P2Name+", Your turn!")
             Player = 2
         else:
             P2Turns = P2Turns+1
             
-            print("Player 1, your turn")
+            print(P1Name+", Your turn!")
             Player = 1
+    #determine the winner        
     print("End of turns")
     if P1Score > P2Score:
         print("Player 1 has", str(P1Score),"Points")
         print("Player 2 has", str(P2Score),"Points")
-        print("Player 1 win")
+        print(P1Name+" has won !")
     elif P2Score > P1Score:
         print("Player 1 has", str(P1Score),"Points")
         print("Player 2 has", str(P2Score),"Points")
-        print("Player 2 win")
+        print(P2Name+" has won!")
     else:
         print("Player 1 has", str(P1Score),"Points")
         print("Player 2 has", str(P2Score),"Points")
-        print("Draw")        
+        print(P1Name,"+",P2Name+" have drew!")        
 def main():
     print("SCRABBLE \nEnter 1 to get the value of a scrabble letter\nEnter 2 to get value of a scrabble word\nEnter 3 to play a game\nEnter 4 to quit")
     while True:
@@ -111,14 +120,20 @@ def main():
         if Option == "1":
             FindLetterValue()
         elif Option == "2":
-            Word = input()
+            Word = input("Please enter a word: ")
             ValueLetter = FindWordValue(Word)
             print("This word is worth",str(ValueLetter),"points")
         elif Option == "3":
             PlayGame()
         elif Option == "4":
-            print("Bye")
-            break
+            AreYouSure = input("Are you sure you want to quit, Type Y or N\n")
+            if AreYouSure.upper() == "Y":
+                print("Thanks for playing!")
+                break
+            elif AreYouSure.upper() == "N" :
+                print("\n")
+            else:
+                print("Invalid option entered")
         else:
             print("Invalid option, try again")
 main()
