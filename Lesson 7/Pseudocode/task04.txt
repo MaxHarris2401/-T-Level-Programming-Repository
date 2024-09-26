@@ -1,0 +1,2 @@
+FOR X=I to 10
+    OUTPUT X * 5

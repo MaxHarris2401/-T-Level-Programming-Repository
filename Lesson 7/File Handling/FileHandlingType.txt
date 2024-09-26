@@ -1,0 +1,5 @@
+"r" - read - opens file for reading, error if file doesnt exist
+"a" - append - opens a file for appending, creates the file if it doesn't exist
+"w" - write - opens a file for writing, creates the file if it doesn't exist
+"x" - create - creates the specified file
+"w+" - read+write

@@ -57,7 +57,7 @@ def FindWordValue(Word):
             case _:
                 Invalid = True
     if Invalid == True:
-        print("aaa")
+        print("Invalid characters entered")
     return ValueLetter
 def GetRandomLetters():
     RandomLetters = random.sample(Alphabet, 7)
@@ -73,8 +73,11 @@ def PlayGame():
     Player = 1
     RandomLetters = GetRandomLetters()
     print(P1Name+", Your turn!")
+    print("Type Esc to stop mid game")
     while P1Turns != 3 and P2Turns != 3:
         Word = input()
+        if Word == "Esc":
+            break
         Invalid = False
         for letter in Word:
             if letter in RandomLetters:

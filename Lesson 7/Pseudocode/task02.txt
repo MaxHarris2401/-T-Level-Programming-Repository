@@ -1,0 +1,6 @@
+NUM1 = INPUT "enter a number"
+IF NUM1 != 5 AND NUM1 != 6
+    OUTPUT "Number not 5 or 6"
+ELSE
+    OUTPUT "OK"
+ENDIF
