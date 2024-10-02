@@ -7,6 +7,19 @@ def Groceries():
             print("Invalid number entered")
         else:
             break
+    print("You spent "+groceries+" on groceries.")
+    return groceries
+def Groceries():
+    while True:
+        groceries = input("Enter how much you spent on groceries: ")
+        try:
+            float(groceries)
+        except:
+            print("Invalid number entered")
+        else:
+            break
+    print("You spent "+groceries+" on groceries.")
+    return groceries
 
 def menu():
     Categories = ["groceries","entertainment","travel","rent"]
@@ -16,7 +29,7 @@ def menu():
             print(Categories[i].upper())
         Option = input(">>> ")
         if Option.lower() == Categories[0]:
-            Groceries()
+            GroceriesCost = Groceries()
         elif Option.lower() == Categories[1]:
             print("Y")
         elif Option.lower() == Categories[2]:

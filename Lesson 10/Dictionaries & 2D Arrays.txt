@@ -12,3 +12,10 @@ e.g thisdict = {
     "year": 1964
 }
 print(thisdict["brand"])
+thisdict["brand"] = "ham" - assigning a single value to a dictionary
+x = thisdict.keys()
+x = thisdict.values()
+x = thisdict.items()
+thisdict.update({"year": 2020}) - updates value in key if exists OTHERWISe adds this key to the dictionary
+thisdict.pop("Model") - removes this key value pair
+mydict = thisdict.copy() - makes a seperate version of a pre existing dictionary
