@@ -1,0 +1,14 @@
+2D Array: storing multiple sets of arrays inside of one array
+e.g. grid = [[1.2.3].[4,5,6],[7,8,9]]
+print(grid[2][1]) - access values
+for row in range(row_num)
+    for col in range(col_num)
+        multi_list[row][col] = row * col - loop through a 2d 
+        
+Dictionary - assigns a value or set of values to a key for searching
+e.g thisdict = {
+    "brand":"Ford",
+    "model": "Mustang",
+    "year": 1964
+}
+print(thisdict["brand"])

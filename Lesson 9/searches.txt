@@ -1,0 +1,27 @@
+Merge sort:
+list halves until numbers are alone
+then pairs or groups of numbers next to eachother are placed in the correct orderer
+groups placed together to form the sorted list.
+LINEAR:
+list doesnt need to be ordered
+faster performance to small or medium lists
+elements can be added and deleted without requiring the list to be resorted
+is simpler to others and easier to program
+can search on any type of data
+can be very slow with large quantities of data
+BINARY:
+needs to be sorted before it can be used
+divide and conquer searching approach
+selects the middle, if value is less then you only take the 
+left half of the list then continue to split those in half
+Bubble Sort:
+Looks at the first two elementschecks if the first is < than second
+if no, will be swapped
+If yes no changes
+will now compare 2&3 and continue onwards
+this will oop through the entire array until the entire array has changed.
+Insertion Sort:
+This is a sort that repeatedly scans items in the listeach time it scans it inserts the item into its correct position
+Meaning it compares index 1&2 and the smaller is swapped to the left, then next scan would be 3<1 if no is 3<2, is 4<1 & so on
+11,7,10,5,8,12,6,9
+rquires n-squared processing steps for every n number of elements to sort
