@@ -2,6 +2,11 @@ board = [["-","-","-"],["-","-","-"],["-", "-", "-"]] # empty naughts and crosse
 playerOne = True # sets the condition for player one to play first
 Turns = 0
 
+WinRecord = {} # defines a dictionary to write the win record to
+
+f = open("XOWinRecord.txt", "a") # opens the file to check if it exists, it will create it
+f.close()
+
 def displayBoard():
     for row in board:
         print(" ".join(row)) # gets rid of the square brackets and quotations in the array
@@ -10,9 +15,10 @@ def Turn(Turns, playerOne):
     
     if playerOne == True:
         print("Player 1 (X)'s turn!\n")
-    else:
+    elif playerOne == False:
         print("Player 2 (O)'s turn!\n")
-
+    else:
+        print("Draw")
     while True:
         rowInput = input("Enter a row ")
         columnInput = input("Enter a column ")
@@ -43,8 +49,17 @@ def Turn(Turns, playerOne):
     if isWin():
         if playerOne:
             print("\nPlayer 2 (O) wins!")
+            WinRecord.update({len(WinRecord)+1: "Player 2 Win"}) # writes to the record that this was a player 2 win
+            with open("XOWinRecord.txt", 'w') as f:  
+                for key, value in WinRecord.items():  
+                    f.write('%s:%s\n' % (key, value))
         else:
             print("\nPlayer 1 (X) wins!")
+            WinRecord.update({len(WinRecord)+1: "Player 1 Win"}) # writes to the record that this was a player 1 win
+            with open("XOWinRecord.txt", 'w') as f:  
+                for key, value in WinRecord.items():  
+                    f.write('%s:%s\n' % (key, value))
+        f.close() # closes the file
         playAgain(Turns, playerOne)
     
     return Turns, playerOne
@@ -69,11 +84,15 @@ def isWin():
 def main(Turns, playerOne):
     print("-------Noughts and Crosses-------\n") #title screen
     play = input("Press any key to play or type R to view the win record\n>>> ")
-    if play.upper == "R":
-
+    if play.upper() == "R":
+        f = open("XOWinRecord.txt", "r") # opens the file to be read
+        for lines in f: # print all the lines in the record
+            print(lines)
+        f.close() # close file
     displayBoard()
     while Turns != 9: # turns repeat 9 times as there are 9 board spaces
         Turns, playerOne = Turn(Turns, playerOne)
+
     
     playAgain(Turns, playerOne) # asks user to play again
 
@@ -81,7 +100,7 @@ def playAgain(Turns, playerOne):
     Again = input("Would you like to play again? Type Y or N ") # up to the user to start a new game
     
     if Again.upper() == "Y":
-        playerOne = True
+        playerOne = True # restarts the game from player one
         displayBoard()
         while Turns != 9:
             Turns, playerOne = Turn(Turns, playerOne)
