@@ -4,6 +4,5 @@ for key in d2 and d1:
     if key in d1 and key in d2:
         d2[key] = d2[key] + d1[key]
     else:
-        pass
-         
+        d2[key] = d1[key]
 print(d2)
