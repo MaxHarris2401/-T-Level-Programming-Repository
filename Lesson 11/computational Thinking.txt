@@ -13,3 +13,12 @@ Activity
 Outline the correct procedure for:
 - Making Dinner - bottom up
 - Driving a car - bottom up
+Decomposition 4 steps:
+1. Indentify and describe the problems and processes using sector specific technical terms
+2. Break down the problem until it cannot be any smaller, likely using top down design. Only take tasks relevant to solving the problem
+3. describe the taslks and subtasks and create documentation that should be clear and consise to enable 3rd parties to implement the solution
+4. Communicate across a team so each person can take a decomposed problem and develop it as a module
+Modularisation
+- Breaking down problems into different components or modules which are independent and can be seperated
+- often used in object orientated programming languages
+- also a technique you can use with just subroutines
