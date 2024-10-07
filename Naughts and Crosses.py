@@ -53,6 +53,7 @@ def Turn(Turns, playerOne):
             with open("XOWinRecord.txt", 'w') as f:  
                 for key, value in WinRecord.items():  
                     f.write('%s:%s\n' % (key, value))
+        # no file written to if the game is a draw
         else:
             print("\nPlayer 1 (X) wins!")
             WinRecord.update({len(WinRecord)+1: "Player 1 Win"}) # writes to the record that this was a player 1 win

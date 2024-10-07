@@ -1,0 +1,15 @@
+A problem solving method using computer science techniques, where possibole solutions are developed and presented in a way that can be understood by humans and computers
+Decomposition
+- Breaking a complex problem into smaller sub-problems
+Abstraction
+- The process of removing or filtering characteristics that are not needed in order to focus on important characteristics
+Top Down
+- All about ising Decomposition to break that problem down
+- Where the top nmost node is most abstracted and sub nodes become less abstracted as they are decomposed.
+Bottom up
+- Opposite of top down, focuses on solving the smallest part, e.g a module, of a problem
+- These are then combined to move up a level, until you reach the end, this is called integration.
+Activity
+Outline the correct procedure for:
+- Making Dinner - bottom up
+- Driving a car - bottom up
