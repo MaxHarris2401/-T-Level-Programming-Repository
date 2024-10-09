@@ -47,7 +47,7 @@ def blockPlayer():
     
     return None
     
-def Turn(Turns, playerOne):
+def Turn(Turns, playerOne, AI):
     
     if playerOne == True:
         print("Player 1 (X)'s turn!\n")
@@ -114,7 +114,7 @@ def Turn(Turns, playerOne):
         if playerOne:
             print("\nPlayer 2 (O) wins!")
             if len(WinRecord) == 0: # checks dictionaries length is empty
-                WinRecord.update({0: "Player Win"}) # writes to the record that this was a player 2 win to key 0
+                WinRecord.update({0: "Player 2 Win"}) # writes to the record that this was a player 2 win to key 0
             else:
                 WinRecord.update({len(WinRecord): "Player 2 Win"}) # writes to the record that this was a player 2 win
             with open("XOWinRecord.txt", 'w') as f:  
@@ -153,7 +153,6 @@ def isWin():
     return False
 
 def main(Turns, playerOne):
-    AI = True
     print("-------Noughts and Crosses-------\n") #title screen
     play = input("Press any key to play or type R to view the win record\n>>> ")
     players = input("Would you like to play with 2 people or with AI? Type 2 for 2 player and AI for the AI\n>>> ")
@@ -164,13 +163,11 @@ def main(Turns, playerOne):
         f.close() # close file
     if players.upper() == "AI":
         AI = True
-        return AI
     elif players == "2":
         AI = False
-        return AI
     displayBoard()
     while Turns != 9: # turns repeat 9 times as there are 9 board spaces
-        Turns, playerOne = Turn(Turns, playerOne)
+        Turns, playerOne = Turn(Turns, playerOne, AI)
 
     
     playAgain(Turns, playerOne) # asks user to play again
