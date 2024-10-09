@@ -22,3 +22,9 @@ Modularisation
 - Breaking down problems into different components or modules which are independent and can be seperated
 - often used in object orientated programming languages
 - also a technique you can use with just subroutines
+Pattern Recognition
+- Identifying patterns to help solve complex problems
+- Is one of the pillars of computational thinking
+- For example code breaking during ww2 to understand ciphered messages.
+- E.g. facial recognitio nsoftware - to identify a persons identity using their face in a photo, video or realtim
+- Can be used to identify common elements or differences in problems or systems, to describe patterns that have been identified, and making predictions based on patterns.

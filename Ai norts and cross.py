@@ -1,3 +1,5 @@
+import random
+
 board = [["-","-","-"],["-","-","-"],["-", "-", "-"]] # empty naughts and crosses board
 playerOne = True # sets the condition for player one to play first
 Turns = 0
@@ -22,6 +24,29 @@ def displayBoard():
     for row in board:
         print(" ".join(row)) # gets rid of the square brackets and quotations in the array
 
+def blockPlayer():
+    for row in range(3):
+        if board[row].count("x") == 2 and board[row].count("-") == 1:
+            return row, board[row].index("-") 
+    
+    for col in range(3):
+        column = [board[0][col], board[1][col], board[2][col]]
+        if column.count("x") == 2 and column.count("-") == 1:
+            return column.index("-"), col 
+ 
+    diagonal1 = [board[0][0], board[1][1], board[2][2]]
+    diagonal2 = [board[0][2], board[1][1], board[2][0]]
+    
+    if diagonal1.count("x") == 2 and diagonal1.count("-") == 1:
+        index = diagonal1.index("-") 
+        return index, index
+    
+    if diagonal2.count("x") == 2 and diagonal2.count("-") == 1:
+        index = diagonal2.index("-") 
+        return index, 2 - index
+    
+    return None
+    
 def Turn(Turns, playerOne):
     
     if playerOne == True:
@@ -30,19 +55,47 @@ def Turn(Turns, playerOne):
         print("Player 2 (O)'s turn!\n")
     else:
         print("Draw")
-    while True:
-        rowInput = input("Enter a row ")
-        columnInput = input("Enter a column ")
-        try: # checks that the data entered is an integer otherwise asks the user to re enter it
-            rowInput = int(rowInput)
-            columnInput = int(columnInput)
-            try: # checks that the row and column are in the range of the array or asks you to re enter
-                board[rowInput][columnInput]
-                break # break the infinite while loop allowing the program to continue as the data entered is valid
+
+    if AI == True:
+        while True:
+            if playerOne == True:
+                rowInput = input("Enter a row ")
+                columnInput = input("Enter a column ")
+                try: # checks that the data entered is an integer otherwise asks the user to re enter it
+                    rowInput = int(rowInput)
+                    columnInput = int(columnInput)
+                    try: # checks that the row and column are in the range of the array or asks you to re enter
+                        board[rowInput][columnInput]
+                        break # break the infinite while loop allowing the program to continue as the data entered is valid
+                    except:
+                        print("Invalid row or column entered, try again")
+                except:
+                    print("One or more invalid values entered")
+            else:
+                move = blockPlayer() ## Trys to block player first
+                if move:
+                    rowInput, columnInput = move
+                else:
+                    columnInput = random.randint(0,2)
+                    rowInput = random.randint(0,2)
+                if board[rowInput][columnInput] != "-":
+                    print("Invalid")
+                else:
+                    break
+    else:
+        while True:
+            rowInput = input("Enter a row ")
+            columnInput = input("Enter a column ")
+            try: # checks that the data entered is an integer otherwise asks the user to re enter it
+                rowInput = int(rowInput)
+                columnInput = int(columnInput)
+                try: # checks that the row and column are in the range of the array or asks you to re enter
+                    board[rowInput][columnInput]
+                    break # break the infinite while loop allowing the program to continue as the data entered is valid
+                except:
+                    print("Invalid row or column entered, try again")
             except:
-                print("Invalid row or column entered, try again")
-        except:
-            print("One or more invalid values entered")
+                print("One or more invalid values entered")
 
     if board[rowInput][columnInput] != "-": # checks if the position inputted by the user already contains an x or o
         print("Position already taken")
@@ -61,7 +114,7 @@ def Turn(Turns, playerOne):
         if playerOne:
             print("\nPlayer 2 (O) wins!")
             if len(WinRecord) == 0: # checks dictionaries length is empty
-                WinRecord.update({0: "Player 2 Win"}) # writes to the record that this was a player 2 win to key 0
+                WinRecord.update({0: "Player Win"}) # writes to the record that this was a player 2 win to key 0
             else:
                 WinRecord.update({len(WinRecord): "Player 2 Win"}) # writes to the record that this was a player 2 win
             with open("XOWinRecord.txt", 'w') as f:  
@@ -100,13 +153,21 @@ def isWin():
     return False
 
 def main(Turns, playerOne):
+    AI = True
     print("-------Noughts and Crosses-------\n") #title screen
     play = input("Press any key to play or type R to view the win record\n>>> ")
+    players = input("Would you like to play with 2 people or with AI? Type 2 for 2 player and AI for the AI\n>>> ")
     if play.upper() == "R":
         f = open("XOWinRecord.txt", "r") # opens the file to be read
         for lines in f: # print all the lines in the record
             print(lines)
         f.close() # close file
+    if players.upper() == "AI":
+        AI = True
+        return AI
+    elif players == "2":
+        AI = False
+        return AI
     displayBoard()
     while Turns != 9: # turns repeat 9 times as there are 9 board spaces
         Turns, playerOne = Turn(Turns, playerOne)
@@ -118,6 +179,7 @@ def playAgain(Turns, playerOne):
     Again = input("Would you like to play again? Type Y or N ") # up to the user to start a new game
     
     if Again.upper() == "Y":
+        board = [["-","-","-"],["-","-","-"],["-", "-", "-"]]
         playerOne = True # restarts the game from player one
         displayBoard()
         while Turns != 9:
