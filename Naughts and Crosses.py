@@ -2,9 +2,9 @@ board = [["-","-","-"],["-","-","-"],["-", "-", "-"]] # empty naughts and crosse
 playerOne = True # sets the condition for player one to play first
 Turns = 0
 
-WinRecord = {} # defines a dictionary to write the win record to
+filename = 'XOWinRecord.txt'
 
-f = open("XOWinRecord.txt", "a") # opens the file to check if it exists, it will create it
+f = open(filename, "a") # opens the file to check if it exists, it will create it
 f.close()
 
 def dictFile(filename): # opens the file as a dictionary
@@ -15,7 +15,6 @@ def dictFile(filename): # opens the file as a dictionary
             dict[key] = value
         return dict
 
-filename = 'XOWinRecord.txt'
 WinRecord = dictFile(filename)
 
 def displayBoard():
@@ -115,6 +114,9 @@ def main(Turns, playerOne):
     playAgain(Turns, playerOne) # asks user to play again
 
 def playAgain(Turns, playerOne):
+    global board
+    board = [["-","-","-"],["-","-","-"],["-", "-", "-"]] # resets the board
+
     Again = input("Would you like to play again? Type Y or N ") # up to the user to start a new game
     
     if Again.upper() == "Y":
@@ -126,6 +128,5 @@ def playAgain(Turns, playerOne):
         print("Thank you for playing!!")
         exit()
     else:
-        
         print("Invalid data entered, please try again")
 main(Turns, playerOne)
