@@ -1,4 +1,0 @@
-0:Player 1 Win
-2:Player 1 Win
-3:Player 1 Win
-3:Player 1 Win

@@ -4,9 +4,9 @@ board = [["-","-","-"],["-","-","-"],["-", "-", "-"]] # empty naughts and crosse
 playerOne = True # sets the condition for player one to play first
 Turns = 0
 
-WinRecord = {} # defines a dictionary to write the win record to
+filename = 'XOWinRecord.txt'
 
-f = open("XOWinRecord.txt", "a") # opens the file to check if it exists, it will create it
+f = open(filename, "a") # opens the file to check if it exists, it will create it
 f.close()
 
 def dictFile(filename): # opens the file as a dictionary
@@ -23,10 +23,9 @@ WinRecord = dictFile(filename)
 def displayBoard():
     for row in board:
         print(" ".join(row)) # gets rid of the square brackets and quotations in the array
-
-def blockPlayer():
-    for row in range(3):
-        if board[row].count("x") == 2 and board[row].count("-") == 1:
+def blockPlayer(): # function for AI to predict player moves in attempt to block
+    for row in range(3): 
+        if board[row].count("x") == 2 and board[row].count("-") == 1: # checks if row has 2 consecutive xs
             return row, board[row].index("-") 
     
     for col in range(3):
@@ -55,8 +54,7 @@ def Turn(Turns, playerOne, AI):
         print("Player 2 (O)'s turn!\n")
     else:
         print("Draw")
-
-    if AI == True:
+    if AI == True: # if player set mode is AI
         while True:
             if playerOne == True:
                 rowInput = input("Enter a row ")
@@ -72,7 +70,7 @@ def Turn(Turns, playerOne, AI):
                 except:
                     print("One or more invalid values entered")
             else:
-                move = blockPlayer() ## Trys to block player first
+                move = blockPlayer() # attempt to block player first
                 if move:
                     rowInput, columnInput = move
                 else:
@@ -82,7 +80,7 @@ def Turn(Turns, playerOne, AI):
                     print("Invalid")
                 else:
                     break
-    else:
+    else: # 2 player mode
         while True:
             rowInput = input("Enter a row ")
             columnInput = input("Enter a column ")
@@ -116,7 +114,7 @@ def Turn(Turns, playerOne, AI):
             if len(WinRecord) == 0: # checks dictionaries length is empty
                 WinRecord.update({0: "Player 2 Win"}) # writes to the record that this was a player 2 win to key 0
             else:
-                WinRecord.update({len(WinRecord): "Player 2 Win"}) # writes to the record that this was a player 2 win
+                WinRecord.update({len(WinRecord)+1: "Player 2 Win"}) # writes to the record that this was a player 2 win
             with open("XOWinRecord.txt", 'w') as f:  
                 for key, value in WinRecord.items():  
                     f.write('%s:%s\n' % (key, value))
@@ -126,7 +124,7 @@ def Turn(Turns, playerOne, AI):
             if len(WinRecord) == 0: # checks dictionaries length is empty
                 WinRecord.update({0: "Player 1 Win"}) # writes to the record that this was a player 1 win to the key 0
             else:
-                WinRecord.update({len(WinRecord): "Player 1 Win"}) # writes to the record that this was a player 1 win
+                WinRecord.update({len(WinRecord)+1: "Player 1 Win"}) # writes to the record that this was a player 1 win
             with open("XOWinRecord.txt", 'w') as f:  
                 for key, value in WinRecord.items():  
                     f.write('%s:%s\n' % (key, value))
@@ -138,33 +136,38 @@ def Turn(Turns, playerOne, AI):
 def isWin():
     for row in board:
         if row[0] == row[1] == row[2] and row[0] != "-": # checks if any row is not equal to an empty space
-            return True
+            return True # somebody won
     
     for column in range(3):
         if board[0][column] == board[1][column] == board[2][column] and board[0][column] != "-":
-            return True
+            return True # somebody won
     
     if board[0][0] == board[1][1] == board[2][2] and board[0][0] != "-":
-        return True
+        return True # somebody won
     
-    if board[0][2] == board[1][1] == board[2][0] and board[0][2] != "-":
-        return True
+    if board[0][2] == board[1][1] == board[2][0] and board[0][2] != "-": 
+        return True # somebody won
     
     return False
 
 def main(Turns, playerOne):
     print("-------Noughts and Crosses-------\n") #title screen
     play = input("Press any key to play or type R to view the win record\n>>> ")
-    players = input("Would you like to play with 2 people or with AI? Type 2 for 2 player and AI for the AI\n>>> ")
     if play.upper() == "R":
         f = open("XOWinRecord.txt", "r") # opens the file to be read
         for lines in f: # print all the lines in the record
             print(lines)
         f.close() # close file
-    if players.upper() == "AI":
-        AI = True
-    elif players == "2":
-        AI = False
+    while True:
+        players = input("Would you like to play with 2 people or with AI? Type 2 for 2 player and AI for the AI\n>>> ")
+        if players.upper() == "AI":
+            AI = True
+            break
+        elif players == "2":
+            AI = False
+            break
+        else:
+            print("Invalid Option entered, please try again\n")
     displayBoard()
     while Turns != 9: # turns repeat 9 times as there are 9 board spaces
         Turns, playerOne = Turn(Turns, playerOne, AI)
@@ -173,14 +176,26 @@ def main(Turns, playerOne):
     playAgain(Turns, playerOne) # asks user to play again
 
 def playAgain(Turns, playerOne):
+    global board
+    board = [["-","-","-"],["-","-","-"],["-", "-", "-"]]
+
     Again = input("Would you like to play again? Type Y or N ") # up to the user to start a new game
     
     if Again.upper() == "Y":
-        board = [["-","-","-"],["-","-","-"],["-", "-", "-"]]
         playerOne = True # restarts the game from player one
+        while True:
+            players = input("Would you like to play with 2 people or with AI? Type 2 for 2 player and AI for the AI\n>>> ")
+            if players.upper() == "AI":
+                AI = True
+                break
+            elif players == "2":
+                AI = False
+                break
+            else:
+                print("Invalid Option entered, please try again\n")
         displayBoard()
         while Turns != 9:
-            Turns, playerOne = Turn(Turns, playerOne)
+            Turns, playerOne = Turn(Turns, playerOne, AI)
     elif Again.upper() == "N":
         print("Thank you for playing!!")
         exit()
