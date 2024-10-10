@@ -28,42 +28,41 @@ WinRecord = dictFile(filename)
 
 def displayBoard(board):
     for layer in range(3):
+        print(f"Layer {layer + 1}:")
         for row in range(3):
-            # join the rows from all three grids in the current layer
+            # Join the rows from all three grids in the current layer
             print("   ".join(" ".join(board[layer][grid][row]) for grid in range(3)))
-        print("\n")  # separate layers with a blank line
+        print()  # Separate layers with a blank line
 
 
 
 def Turn(Turns, playerOne):
-    
-    if playerOne == True:
+    if playerOne:
         print("Player 1 (X)'s turn!\n")
-    elif playerOne == False:
-        print("Player 2 (O)'s turn!\n")
     else:
-        print("Draw")
+        print("Player 2 (O)'s turn!\n")
+    
     while True:
-        gridInput = int(input("Enter a grid "))
-        rowInput = int(input("Enter a row "))
-        columnInput = int(input("Enter a column "))
-        if 0 <= gridInput < 3 and 0 <= rowInput < 3 and 0 <= columnInput < 3:
-            if board[gridInput][rowInput][columnInput] != "x" or board[gridInput][rowInput][columnInput] != "o":
-                if playerOne == True:
-                    board[gridInput][rowInput][columnInput] = "x"
-                    playerOne = False
-                elif playerOne == False:
-                    board[gridInput][rowInput][columnInput] = "o"
-                    playerOne = True
-                Turns += 1
-                break
+        try:
+            gridInput = int(input("Enter a grid (0-2): "))
+            rowInput = int(input("Enter a row (0-2): "))
+            columnInput = int(input("Enter a column (0-2): "))
+            
+            if 0 <= gridInput < 3 and 0 <= rowInput < 3 and 0 <= columnInput < 3:
+                # Check if the position is not occupied by 'x' or 'o'
+                if board[gridInput][rowInput][columnInput] != "x" and board[gridInput][rowInput][columnInput] != "o":
+                    board[gridInput][rowInput][columnInput] = "x" if playerOne else "o"
+                    Turns += 1
+                    break
+                else:
+                    print("Position already taken, try again.")
             else:
-                print("Position already taken, try again.")
-        else:
-            print("Invalid grid, row, or column entered, try again.")
+                print("Invalid grid, row, or column entered, try again.")
+        except ValueError:
+            print("Please enter valid integers.")
                 
     displayBoard(board)
-    return Turns, playerOne
+    return Turns, not playerOne  # Switch player
 
 def main(Turns, playerOne):
     print("-------Noughts and Crosses-------\n")
