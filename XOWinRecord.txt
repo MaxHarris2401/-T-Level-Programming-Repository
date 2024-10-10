@@ -10,3 +10,4 @@
 9:Player 2 Win
 10:Player 1 Win
 11:Player 1 Win
+12:Player 1 Win

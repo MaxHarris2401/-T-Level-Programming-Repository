@@ -32,11 +32,13 @@ def Turn(Turns, playerOne):
     while True:
         rowInput = input("Enter a row ")
         columnInput = input("Enter a column ")
+        gridInput = input("Enter a grid ")
         try: # checks that the data entered is an integer otherwise asks the user to re enter it
             rowInput = int(rowInput)
             columnInput = int(columnInput)
+            gridInput = int(gridInput)
             try: # checks that the row and column are in the range of the array or asks you to re enter
-                board[rowInput][columnInput]
+                board[gridInput][rowInput][columnInput]
                 break # break the infinite while loop allowing the program to continue as the data entered is valid
             except:
                 print("Invalid row or column entered, try again")
@@ -63,7 +65,7 @@ def Turn(Turns, playerOne):
                 WinRecord.update({0: "Player 2 Win"}) # writes to the record that this was a player 2 win to key 0
             else:
                 WinRecord.update({len(WinRecord): "Player 2 Win"}) # writes to the record that this was a player 2 win
-            with open("XOWinRecord.txt", 'w') as f:  
+            with open(filename, 'w') as f:  
                 for key, value in WinRecord.items():  
                     f.write('%s:%s\n' % (key, value))
         # no file written to if the game is a draw
@@ -73,7 +75,7 @@ def Turn(Turns, playerOne):
                 WinRecord.update({0: "Player 1 Win"}) # writes to the record that this was a player 1 win to the key 0
             else:
                 WinRecord.update({len(WinRecord): "Player 1 Win"}) # writes to the record that this was a player 1 win
-            with open("XOWinRecord.txt", 'w') as f:  
+            with open(filename, 'w') as f:  
                 for key, value in WinRecord.items():  
                     f.write('%s:%s\n' % (key, value))
         f.close() # closes the file
@@ -102,7 +104,7 @@ def main(Turns, playerOne):
     print("-------Noughts and Crosses-------\n") #title screen
     play = input("Press any key to play or type R to view the win record\n>>> ")
     if play.upper() == "R":
-        f = open("XOWinRecord.txt", "r") # opens the file to be read
+        f = open(filename, "r") # opens the file to be read
         for lines in f: # print all the lines in the record
             print(lines)
         f.close() # close file

@@ -142,7 +142,7 @@ def Turn(Turns, playerOne, AI):
                 WinRecord.update({0: "Player 2 Win"}) # writes to the record that this was a player 2 win to key 0
             else:
                 WinRecord.update({len(WinRecord): "Player 2 Win"}) # writes to the record that this was a player 2 win
-            with open("XOWinRecord.txt", 'w') as f:  
+            with open(filename, 'w') as f:  
                 for key, value in WinRecord.items():  
                     f.write('%s:%s\n' % (key, value))
         # no file written to if the game is a draw
@@ -152,7 +152,7 @@ def Turn(Turns, playerOne, AI):
                 WinRecord.update({0: "Player 1 Win"}) # writes to the record that this was a player 1 win to the key 0
             else:
                 WinRecord.update({len(WinRecord): "Player 1 Win"}) # writes to the record that this was a player 1 win
-            with open("XOWinRecord.txt", 'w') as f:  
+            with open(filename, 'w') as f:  
                 for key, value in WinRecord.items():  
                     f.write('%s:%s\n' % (key, value))
         f.close() # closes the file
