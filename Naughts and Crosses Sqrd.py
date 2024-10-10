@@ -48,13 +48,15 @@ def Turn(Turns, playerOne):
     else:
         print("Draw")
     while True:
+        gridInput = input("Enter a grid ")
         rowInput = input("Enter a row ")
         columnInput = input("Enter a column ")
         try: # checks that the data entered is an integer otherwise asks the user to re enter it
             rowInput = int(rowInput)
             columnInput = int(columnInput)
+            gridInput = int(gridInput)
             try: # checks that the row and column are in the range of the array or asks you to re enter
-                board[rowInput][columnInput]
+                board[gridInput][rowInput][columnInput]
                 break # break the infinite while loop allowing the program to continue as the data entered is valid
             except:
                 print("Invalid row or column entered, try again")
@@ -65,10 +67,10 @@ def Turn(Turns, playerOne):
         print("Position already taken")
     else:
         if playerOne == True:
-            board[rowInput][columnInput] = "x"
+            board[gridInput][rowInput][columnInput] = "x"
             playerOne = False
         elif playerOne == False:
-            board[rowInput][columnInput] = "o"
+            board[gridInput][rowInput][columnInput] = "o"
             playerOne = True
 
     Turns +=1 # increments turn

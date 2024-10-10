@@ -32,13 +32,11 @@ def Turn(Turns, playerOne):
     while True:
         rowInput = input("Enter a row ")
         columnInput = input("Enter a column ")
-        gridInput = input("Enter a grid ")
         try: # checks that the data entered is an integer otherwise asks the user to re enter it
             rowInput = int(rowInput)
             columnInput = int(columnInput)
-            gridInput = int(gridInput)
             try: # checks that the row and column are in the range of the array or asks you to re enter
-                board[gridInput][rowInput][columnInput]
+                board[rowInput][columnInput]
                 break # break the infinite while loop allowing the program to continue as the data entered is valid
             except:
                 print("Invalid row or column entered, try again")
