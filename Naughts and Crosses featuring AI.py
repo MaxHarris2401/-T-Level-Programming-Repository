@@ -17,7 +17,6 @@ def dictFile(filename): # opens the file as a dictionary
             dict[key] = value
         return dict
 
-filename = 'XOWinRecord.txt'
 WinRecord = dictFile(filename)
 
 def displayBoard():
@@ -29,14 +28,14 @@ def blockPlayer(): # function for AI to predict player moves in attempt to block
             return row, board[row].index("-") 
     
     for col in range(3):
-        column = [board[0][col], board[1][col], board[2][col]]
+        column = [board[0][col], board[1][col], board[2][col]] # checks columns
         if column.count("x") == 2 and column.count("-") == 1:
             return column.index("-"), col 
  
-    diagonal1 = [board[0][0], board[1][1], board[2][2]]
+    diagonal1 = [board[0][0], board[1][1], board[2][2]] # diagonal victories
     diagonal2 = [board[0][2], board[1][1], board[2][0]]
     
-    if diagonal1.count("x") == 2 and diagonal1.count("-") == 1:
+    if diagonal1.count("x") == 2 and diagonal1.count("-") == 1: # if 2 diagonals are occupied by x and one is empty it will play that empty space
         index = diagonal1.index("-") 
         return index, index
     
@@ -46,20 +45,20 @@ def blockPlayer(): # function for AI to predict player moves in attempt to block
     
     return None
 
-def tryWin(): # function for AI to predict player moves in attempt to block
+def tryWin(): # function for AI to try to win 3 in a row
     for row in range(3): 
-        if board[row].count("o") == 2 and board[row].count("-") == 1: # checks if row has 2 consecutive xs
+        if board[row].count("o") == 2 and board[row].count("-") == 1: # checks if row has 2 consecutive os
             return row, board[row].index("-") 
     
     for col in range(3):
-        column = [board[0][col], board[1][col], board[2][col]]
+        column = [board[0][col], board[1][col], board[2][col]] # checks columns
         if column.count("o") == 2 and column.count("-") == 1:
             return column.index("-"), col 
  
-    diagonal1 = [board[0][0], board[1][1], board[2][2]]
-    diagonal2 = [board[0][2], board[1][1], board[2][0]]
+    diagonal1 = [board[0][0], board[1][1], board[2][2]] # diagonal victories
+    diagonal2 = [board[0][2], board[1][1], board[2][0]] 
     
-    if diagonal1.count("o") == 2 and diagonal1.count("-") == 1:
+    if diagonal1.count("o") == 2 and diagonal1.count("-") == 1: # if 2 diagonals are occupied by o and one is empty it will play that empty space
         index = diagonal1.index("-") 
         return index, index
     
@@ -78,8 +77,6 @@ def Turn(Turns, playerOne, AI):
             print("AI Player is thinking of Move...\n")
         else:
             print("Player 2 (O)'s turn!\n")
-    else:
-        print("Draw")
     if AI == True: # if player set mode is AI
         while True:
             if playerOne == True:
@@ -159,18 +156,7 @@ def Turn(Turns, playerOne, AI):
                 for key, value in WinRecord.items():  
                     f.write('%s:%s\n' % (key, value))
         f.close() # closes the file
-        playAgain(Turns, playerOne)
-    else:
-        print("It was a Draw!")
-        if len(WinRecord) == 0: # checks dictionaries length is empty
-            WinRecord.update({0: "Draw"}) # writes to the record that this was a player 1 win to the key 0
-        else:
-            WinRecord.update({len(WinRecord): "Draw"}) # writes to the record that this was a player 1 win
-        with open("XOWinRecord.txt", 'w') as f:  
-            for key, value in WinRecord.items():  
-                f.write('%s:%s\n' % (key, value))
-        f.close() # closes the file
-        playAgain(Turns, playerOne)
+        playAgain(Turns, playerOne, AI)
     
     return Turns, playerOne
 
@@ -214,11 +200,12 @@ def main(Turns, playerOne):
         Turns, playerOne = Turn(Turns, playerOne, AI)
 
     
-    playAgain(Turns, playerOne) # asks user to play again
+    playAgain(Turns, playerOne, AI) # asks user to play again
 
-def playAgain(Turns, playerOne):
+def playAgain(Turns, playerOne, AI):
     global board
     board = [["-","-","-"],["-","-","-"],["-", "-", "-"]] # resets the board
+    Turns = 0
 
     Again = input("Would you like to play again? Type Y or N ") # up to the user to start a new game
     
