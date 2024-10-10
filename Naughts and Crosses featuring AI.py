@@ -45,6 +45,29 @@ def blockPlayer(): # function for AI to predict player moves in attempt to block
         return index, 2 - index
     
     return None
+
+def tryWin(): # function for AI to predict player moves in attempt to block
+    for row in range(3): 
+        if board[row].count("o") == 2 and board[row].count("-") == 1: # checks if row has 2 consecutive xs
+            return row, board[row].index("-") 
+    
+    for col in range(3):
+        column = [board[0][col], board[1][col], board[2][col]]
+        if column.count("o") == 2 and column.count("-") == 1:
+            return column.index("-"), col 
+ 
+    diagonal1 = [board[0][0], board[1][1], board[2][2]]
+    diagonal2 = [board[0][2], board[1][1], board[2][0]]
+    
+    if diagonal1.count("o") == 2 and diagonal1.count("-") == 1:
+        index = diagonal1.index("-") 
+        return index, index
+    
+    if diagonal2.count("o") == 2 and diagonal2.count("-") == 1:
+        index = diagonal2.index("-") 
+        return index, 2 - index
+    
+    return None
     
 def Turn(Turns, playerOne, AI):
     
@@ -73,12 +96,16 @@ def Turn(Turns, playerOne, AI):
                 except:
                     print("One or more invalid values entered")
             else:
-                move = blockPlayer() # attempt to block player first
+                move = tryWin() # attempt to win first
                 if move:
                     rowInput, columnInput = move
                 else:
-                    columnInput = random.randint(0,2)
-                    rowInput = random.randint(0,2)
+                    move = blockPlayer() # try to block player
+                    if move:
+                        rowInput, columnInput = move
+                    else: # random position
+                        columnInput = random.randint(0,2)
+                        rowInput = random.randint(0,2)
                 if board[rowInput][columnInput] != "-":
                     print("Invalid")
                 else:
@@ -131,6 +158,17 @@ def Turn(Turns, playerOne, AI):
             with open("XOWinRecord.txt", 'w') as f:  
                 for key, value in WinRecord.items():  
                     f.write('%s:%s\n' % (key, value))
+        f.close() # closes the file
+        playAgain(Turns, playerOne)
+    else:
+        print("It was a Draw!")
+        if len(WinRecord) == 0: # checks dictionaries length is empty
+            WinRecord.update({0: "Draw"}) # writes to the record that this was a player 1 win to the key 0
+        else:
+            WinRecord.update({len(WinRecord): "Draw"}) # writes to the record that this was a player 1 win
+        with open("XOWinRecord.txt", 'w') as f:  
+            for key, value in WinRecord.items():  
+                f.write('%s:%s\n' % (key, value))
         f.close() # closes the file
         playAgain(Turns, playerOne)
     
