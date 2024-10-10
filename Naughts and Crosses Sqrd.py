@@ -1,28 +1,20 @@
 board = [
-    [
-        [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]],
-        [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]],
-        [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]]
-    ],
-    [
-        [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]],
-        [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]],
-        [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]]
-    ],
-    [
-        [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]],
-        [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]],
-        [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]]
-    ]
+    [[["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]],
+     [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]],
+     [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]]],
+    
+    [[["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]],
+     [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]],
+     [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]]],
+    
+    [[["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]],
+     [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]],
+     [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]]]
 ]
 
-playerOne = True # sets the condition for player one to play first
+playerOne = True
 Turns = 0
-
 filename = 'XOSquaredWinRecord.txt'
-
-f = open(filename, "a") # opens the file to check if it exists, it will create it
-f.close()
 
 def dictFile(filename): # opens the file as a dictionary
     dict = {}
@@ -34,10 +26,14 @@ def dictFile(filename): # opens the file as a dictionary
 
 WinRecord = dictFile(filename)
 
-def displayBoard():
-    for layer in board:
-        for row in range(3):  
-            print("    ".join(" | ".join(layer[i][row]) for i in range(3)))
+def displayBoard(board):
+    for layer in range(3):
+        for row in range(3):
+            # join the rows from all three grids in the current layer
+            print("   ".join(" ".join(board[layer][grid][row]) for grid in range(3)))
+        print("\n")  # separate layers with a blank line
+
+
 
 def Turn(Turns, playerOne):
     
@@ -48,63 +44,53 @@ def Turn(Turns, playerOne):
     else:
         print("Draw")
     while True:
-        gridInput = input("Enter a grid ")
-        rowInput = input("Enter a row ")
-        columnInput = input("Enter a column ")
-        try: # checks that the data entered is an integer otherwise asks the user to re enter it
-            rowInput = int(rowInput)
-            columnInput = int(columnInput)
-            gridInput = int(gridInput)
-            try: # checks that the row and column are in the range of the array or asks you to re enter
-                board[gridInput][rowInput][columnInput]
-                break # break the infinite while loop allowing the program to continue as the data entered is valid
-            except:
-                print("Invalid row or column entered, try again")
-        except:
-            print("One or more invalid values entered")
-
-    if board[rowInput][columnInput] != "-": # checks if the position inputted by the user already contains an x or o
-        print("Position already taken")
-    else:
-        if playerOne == True:
-            board[gridInput][rowInput][columnInput] = "x"
-            playerOne = False
-        elif playerOne == False:
-            board[gridInput][rowInput][columnInput] = "o"
-            playerOne = True
-
-    Turns +=1 # increments turn
-    displayBoard()
+        gridInput = int(input("Enter a grid "))
+        rowInput = int(input("Enter a row "))
+        columnInput = int(input("Enter a column "))
+        if 0 <= gridInput < 3 and 0 <= rowInput < 3 and 0 <= columnInput < 3:
+            if board[gridInput][rowInput][columnInput] != "x" or board[gridInput][rowInput][columnInput] != "o":
+                if playerOne == True:
+                    board[gridInput][rowInput][columnInput] = "x"
+                    playerOne = False
+                elif playerOne == False:
+                    board[gridInput][rowInput][columnInput] = "o"
+                    playerOne = True
+                Turns += 1
+                break
+            else:
+                print("Position already taken, try again.")
+        else:
+            print("Invalid grid, row, or column entered, try again.")
+                
+    displayBoard(board)
+    return Turns, playerOne
 
 def main(Turns, playerOne):
-    print("-------Noughts and Crosses-------\n") #title screen
+    print("-------Noughts and Crosses-------\n")
     play = input("Press any key to play or type R to view the win record\n>>> ")
     if play.upper() == "R":
-        f = open(filename, "r") # opens the file to be read
-        for lines in f: # print all the lines in the record
-            print(lines)
-        f.close() # close file
-    displayBoard()
-    while Turns != 9: # turns repeat 9 times as there are 9 board spaces
+        with open(filename, "r") as f:
+            for line in f:
+                print(line)
+    displayBoard(board)
+    while Turns < 9:
         Turns, playerOne = Turn(Turns, playerOne)
 
-    
-    playAgain(Turns, playerOne) # asks user to play again
+    playAgain(Turns, playerOne)
 
 def playAgain(Turns, playerOne):
     global board
-    board = [["-","-","-"],["-","-","-"],["-", "-", "-"]] # resets the board
 
-    Again = input("Would you like to play again? Type Y or N ") # up to the user to start a new game
-    
+    Again = input("Would you like to play again? Type Y or N ")
     if Again.upper() == "Y":
-        playerOne = True # restarts the game from player one
+        playerOne = True
         displayBoard()
-        while Turns != 9:
+        while Turns < 9:
             Turns, playerOne = Turn(Turns, playerOne)
     elif Again.upper() == "N":
         print("Thank you for playing!!")
         exit()
     else:
         print("Invalid data entered, please try again")
+
 main(Turns, playerOne)
