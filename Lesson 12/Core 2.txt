@@ -50,3 +50,17 @@ Maintainable code
     - PascalCase
     - Hungarian notation - datatype followed by camel case
     - SCREAMING_SNAKE_CASE
+- comments:
+    - is used for commenting in python
+    - used to explain the meaning of Code
+- white space
+    - simply easier to read
+- structure of code
+    - how your code is structured will have impact on readability and ease of maintainance
+    - also known as the layout of the code
+    - one element is line length. pep8 recommends a maximum 79 characters including whitespace
+    - other layout elements
+        - indentation
+        - tabs or spaces
+        - blanks lines
+        - line breaks
