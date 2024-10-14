@@ -1,0 +1,25 @@
+Program code
+- usually considered to be the code written to solve the problem which follows the rules of the programming language.
+- however, program code can also be used to create algorithms, which is known a "draft program code"
+- draft code can have errors as it will not be used as final code as long as the meaning is clear how the program should work
+- this is pointless
+- Advantages:
+    - it is very probable that the person creating the algorithm will have some programming knowledge
+    - It is not necessary to ue the correct syntax
+    - all the required constructs will be available to be included in draft code
+- Disadvantages:
+    - Easy to begin creating draft code but end up creating the final code
+    - Full decomposition may not be completed
+Dry run testing
+- used to test a small part of a program
+    - an algorithm
+    - a function or procedure
+- the programmer follows the code through manually using test data to check that the code is correct.
+- programmer documents changes in values of variables as each line of code is executed using a trace table.
+Trace tables
+- person behaving as a computer
+- each column used to document the value of a particular variables
+- each row represents the values of the variables at a given point in the program execution
+- every time there is an assignment statement in the code, the programmer writes the value assigned to the variable on the trace table
+- at the end the programmer should be able to see if the algorithm produced the expected results.
+- a new row is started for each iteration of a loop or each time processing is repeated, not all cells will necassarily be filled in
