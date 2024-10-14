@@ -23,3 +23,30 @@ Trace tables
 - every time there is an assignment statement in the code, the programmer writes the value assigned to the variable on the trace table
 - at the end the programmer should be able to see if the algorithm produced the expected results.
 - a new row is started for each iteration of a loop or each time processing is repeated, not all cells will necassarily be filled in
+Pre-written code
+- Using third party
+- using open-source libraries
+- repurposing code that has been used/developed/written internally
+- Built in functions
+    - functions that are already built in the programming languages
+- Standard libraries
+    - Contain reuseable sections of code (called modules) that can be incorporated into other programs/projects
+- Advantages:
+    - shorter development time
+    - improved end product
+- Disadvantages:
+    - Security risks
+        - Code must always be tested for security vulnerabilities. At risk of things like injection flaws or cross-site scripting(XSS)
+    - Lack of control
+    - Naming conventions
+Robust & Reliable code
+- means code can deal with errors during execution
+- be able to deal with the input from the user end that is not correct
+- the program must not crash and must output an error message to guide the user to input valid inputs.
+Maintainable code
+- naming conventions:
+    - snake_case
+    - camelCase
+    - PascalCase
+    - Hungarian notation - datatype followed by camel case
+    - SCREAMING_SNAKE_CASE
