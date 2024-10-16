@@ -17,7 +17,6 @@ board = [
 ]
 playerOne = True
 Turns = 0
-wins = 0
 filename = 'XOSquaredWinRecord.txt'
 
 def dictFile(filename): # opens the file as a dictionary
@@ -75,7 +74,7 @@ def Turn(Turns, playerOne):
     Turns +=1 # increments turn
     displayBoard(board)
     
-    if isWin(wins):
+    if isWin():
         if playerOne:
             print("\nPlayer 2 (O) wins!")
             if len(WinRecord) == 0: # checks dictionaries length is empty
@@ -100,35 +99,40 @@ def Turn(Turns, playerOne):
     
     return Turns, playerOne
 
-def isWin(wins):
+def isWin():
+    # Check wins in each layer
+    layer_wins = [0, 0, 0]  # Track wins for each layer
     for layer in range(3):
-        for row in board:
-            if row[0] == row[1] == row[2] and row[0] != "-": # checks if any row is not equal to an empty space
-                if wins !=3:
-                    wins=wins+1
-                else:
-                    return True
-        
+        # Check rows and columns within each layer
+        for row in range(3):
+            if all(board[layer][col][row] == "x" for col in range(3)):
+                layer_wins[layer] += 1
+            if all(board[layer][col][row] == "o" for col in range(3)):
+                layer_wins[layer] -= 1  # Use negative to indicate opponent win
+
         for column in range(3):
-            if board[0][column] == board[1][column] == board[2][column] and board[0][column] != "-":
-                if wins !=3:
-                    wins=wins+1
-                else:
-                    return True
-        
-        if board[0][0] == board[1][1] == board[2][2] and board[0][0] != "-":
-            if wins !=3:
-                    wins=wins+1
-            else:
-                return True
-        
-        if board[0][2] == board[1][1] == board[2][0] and board[0][2] != "-":
-            if wins !=3:
-                wins=wins+1
-            else:
-                return True
-        
-        return False
+            if all(board[layer][column][row] == "x" for row in range(3)):
+                layer_wins[layer] += 1
+            if all(board[layer][column][row] == "o" for row in range(3)):
+                layer_wins[layer] -= 1  # Use negative to indicate opponent win
+
+        # Check diagonals within each layer
+        if board[layer][0][0] == board[layer][1][1] == board[layer][2][2] == "x":
+            layer_wins[layer] += 1
+        if board[layer][0][2] == board[layer][1][1] == board[layer][2][0] == "x":
+            layer_wins[layer] += 1
+        if board[layer][0][0] == board[layer][1][1] == board[layer][2][2] == "o":
+            layer_wins[layer] -= 1
+        if board[layer][0][2] == board[layer][1][1] == board[layer][2][0] == "o":
+            layer_wins[layer] -= 1
+
+    # Check if any player has won across layers
+    if layer_wins.count(3) > 0:
+        return "x"  # Player 1 wins
+    elif layer_wins.count(-3) > 0:
+        return "o"  # Player 2 wins
+    
+    return None  # No win yet
 
 def main(Turns, playerOne):
     print("-------Noughts and Crosses Squared-------\n")
