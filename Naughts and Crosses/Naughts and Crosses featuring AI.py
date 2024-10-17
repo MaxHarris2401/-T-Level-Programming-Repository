@@ -238,16 +238,16 @@ def play_again(turns, player_one, AI):
     # resets the board
     turns = 0
 
-    Again = input("Would you like to play again? Type Y or N ") 
+    again = input("Would you like to play again? Type Y or N ") 
     # up to the user to start a new game
     
-    if Again.upper() == "Y":
+    if again.upper() == "Y":
         player_one = True 
         # restarts the game from player one
         display_board()
         while turns != 9:
             turns, player_one = turn(turns, player_one, AI)
-    elif Again.upper() == "N":
+    elif again.upper() == "N":
         print("Thank you for playing!!")
         exit()
     else:
