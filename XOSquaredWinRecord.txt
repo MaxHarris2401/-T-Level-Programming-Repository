@@ -4,3 +4,4 @@
 3:Player 1 Win
 4:Player 1 Win
 5:Player 1 Win
+6:Player 1 Win
