@@ -1,15 +1,19 @@
 import random
 
-board = [["-","-","-"],["-","-","-"],["-", "-", "-"]] # empty naughts and crosses board
-playerOne = True # sets the condition for player one to play first
+board = [["-","-","-"],["-","-","-"],["-", "-", "-"]] 
+# empty naughts and crosses board
+player_one = True 
+# sets the condition for player one to play first
 Turns = 0
 
-filename = 'XOWinRecord.txt'
+filename = 'XOwin_record.txt'
 
-f = open(filename, "a") # opens the file to check if it exists, it will create it
+f = open(filename, "a") 
+# opens the file to check if it exists, it will create it
 f.close()
 
-def dictFile(filename): # opens the file as a dictionary
+def dict_file(filename): 
+    # opens the file as a dictionary
     dict = {}
     with open(filename, 'r') as file:
         for line in file:
@@ -17,25 +21,31 @@ def dictFile(filename): # opens the file as a dictionary
             dict[key] = value
         return dict
 
-WinRecord = dictFile(filename)
+win_record = dict_file(filename)
 
-def displayBoard():
+def display_board():
     for row in board:
-        print(" ".join(row)) # gets rid of the square brackets and quotations in the array
-def blockPlayer(): # function for AI to predict player moves in attempt to block
+        print(" ".join(row)) 
+        # gets rid of the square brackets and quotations in the array
+def block_player(): 
+    # function for AI to predict player moves in attempt to block
     for row in range(3): 
-        if board[row].count("x") == 2 and board[row].count("-") == 1: # checks if row has 2 consecutive xs
+        if board[row].count("x") == 2 and board[row].count("-") == 1: 
+            # checks if row has 2 consecutive xs
             return row, board[row].index("-") 
     
     for col in range(3):
-        column = [board[0][col], board[1][col], board[2][col]] # checks columns
+        column = [board[0][col], board[1][col], board[2][col]] 
+        # checks columns
         if column.count("x") == 2 and column.count("-") == 1:
             return column.index("-"), col 
  
-    diagonal1 = [board[0][0], board[1][1], board[2][2]] # diagonal victories
+    diagonal1 = [board[0][0], board[1][1], board[2][2]] 
+    # diagonal victories
     diagonal2 = [board[0][2], board[1][1], board[2][0]]
     
-    if diagonal1.count("x") == 2 and diagonal1.count("-") == 1: # if 2 diagonals are occupied by x and one is empty it will play that empty space
+    if diagonal1.count("x") == 2 and diagonal1.count("-") == 1: 
+        # if 2 diagonals are occupied by x and one is empty it will play that empty space
         index = diagonal1.index("-") 
         return index, index
     
@@ -45,20 +55,24 @@ def blockPlayer(): # function for AI to predict player moves in attempt to block
     
     return None
 
-def tryWin(): # function for AI to try to win 3 in a row
+def try_win(): # function for AI to try to win 3 in a row
     for row in range(3): 
-        if board[row].count("o") == 2 and board[row].count("-") == 1: # checks if row has 2 consecutive os
+        if board[row].count("o") == 2 and board[row].count("-") == 1: 
+            # checks if row has 2 consecutive os
             return row, board[row].index("-") 
     
     for col in range(3):
-        column = [board[0][col], board[1][col], board[2][col]] # checks columns
+        column = [board[0][col], board[1][col], board[2][col]] 
+        # checks columns
         if column.count("o") == 2 and column.count("-") == 1:
             return column.index("-"), col 
  
-    diagonal1 = [board[0][0], board[1][1], board[2][2]] # diagonal victories
+    diagonal1 = [board[0][0], board[1][1], board[2][2]] 
+    # diagonal victories
     diagonal2 = [board[0][2], board[1][1], board[2][0]] 
     
-    if diagonal1.count("o") == 2 and diagonal1.count("-") == 1: # if 2 diagonals are occupied by o and one is empty it will play that empty space
+    if diagonal1.count("o") == 2 and diagonal1.count("-") == 1: 
+        # if 2 diagonals are occupied by o and one is empty it will play that empty space
         index = diagonal1.index("-") 
         return index, index
     
@@ -68,36 +82,39 @@ def tryWin(): # function for AI to try to win 3 in a row
     
     return None
     
-def Turn(Turns, playerOne, AI):
+def turn(turns, player_one, AI):
     
-    if playerOne == True:
+    if player_one == True:
         print("Player 1 (X)'s turn!\n")
-    elif playerOne == False:
+    elif player_one == False:
         if AI == True:
             print("AI Player is thinking of Move...\n")
         else:
             print("Player 2 (O)'s turn!\n")
     if AI == True: # if player set mode is AI
         while True:
-            if playerOne == True:
+            if player_one == True:
                 rowInput = input("Enter a row ")
                 columnInput = input("Enter a column ")
-                try: # checks that the data entered is an integer otherwise asks the user to re enter it
+                try: 
+                    # checks that the data entered is an integer otherwise asks the user to re enter it
                     rowInput = int(rowInput)
                     columnInput = int(columnInput)
-                    try: # checks that the row and column are in the range of the array or asks you to re enter
+                    try: 
+                        # checks that the row and column are in the range of the array or asks you to re enter
                         board[rowInput][columnInput]
-                        break # break the infinite while loop allowing the program to continue as the data entered is valid
+                        break 
+                    # break the infinite while loop allowing the program to continue as the data entered is valid
                     except:
                         print("Invalid row or column entered, try again")
                 except:
                     print("One or more invalid values entered")
             else:
-                move = tryWin() # attempt to win first
+                move = try_win() # attempt to win first
                 if move:
                     rowInput, columnInput = move
                 else:
-                    move = blockPlayer() # try to block player
+                    move = block_player() # try to block player
                     if move:
                         rowInput, columnInput = move
                     else: # random position
@@ -111,58 +128,69 @@ def Turn(Turns, playerOne, AI):
         while True:
             rowInput = input("Enter a row ")
             columnInput = input("Enter a column ")
-            try: # checks that the data entered is an integer otherwise asks the user to re enter it
+            try: 
+                # checks that the data entered is an integer otherwise asks the user to re enter it
                 rowInput = int(rowInput)
                 columnInput = int(columnInput)
-                try: # checks that the row and column are in the range of the array or asks you to re enter
+                try: 
+                    # checks that the row and column are in the range of the array or asks you to re enter
                     board[rowInput][columnInput]
-                    break # break the infinite while loop allowing the program to continue as the data entered is valid
+                    break 
+                # break the infinite while loop allowing the program to continue as the data entered is valid
                 except:
                     print("Invalid row or column entered, try again")
             except:
                 print("One or more invalid values entered")
 
-    if board[rowInput][columnInput] != "-": # checks if the position inputted by the user already contains an x or o
+    if board[rowInput][columnInput] != "-": 
+        # checks if the position inputted by the user already contains an x or o
         print("Position already taken")
     else:
-        if playerOne == True:
+        if player_one == True:
             board[rowInput][columnInput] = "x"
-            playerOne = False
-        elif playerOne == False:
+            player_one = False
+        elif player_one == False:
             board[rowInput][columnInput] = "o"
-            playerOne = True
+            player_one = True
 
-    Turns +=1 # increments turn
-    displayBoard()
+    turns +=1 # increments turn
+    display_board()
     
-    if isWin():
-        if playerOne:
+    if is_win():
+        if player_one:
             print("\nPlayer 2 (O) wins!")
-            if len(WinRecord) == 0: # checks dictionaries length is empty
-                WinRecord.update({0: "Player 2 Win"}) # writes to the record that this was a player 2 win to key 0
+            if len(win_record) == 0: 
+                # checks dictionaries length is empty
+                win_record.update({0: "Player 2 Win"}) 
+                # writes to the record that this was a player 2 win to key 0
             else:
-                WinRecord.update({len(WinRecord): "Player 2 Win"}) # writes to the record that this was a player 2 win
+                win_record.update({len(win_record): "Player 2 Win"}) 
+                # writes to the record that this was a player 2 win
             with open(filename, 'w') as f:  
-                for key, value in WinRecord.items():  
+                for key, value in win_record.items():  
                     f.write('%s:%s\n' % (key, value))
         # no file written to if the game is a draw
         else:
             print("\nPlayer 1 (X) wins!")
-            if len(WinRecord) == 0: # checks dictionaries length is empty
-                WinRecord.update({0: "Player 1 Win"}) # writes to the record that this was a player 1 win to the key 0
+            if len(win_record) == 0: 
+                # checks dictionaries length is empty
+                win_record.update({0: "Player 1 Win"})
+                # writes to the record that this was a player 1 win to the key 0
             else:
-                WinRecord.update({len(WinRecord): "Player 1 Win"}) # writes to the record that this was a player 1 win
+                win_record.update({len(win_record): "Player 1 Win"}) 
+                # writes to the record that this was a player 1 win
             with open(filename, 'w') as f:  
-                for key, value in WinRecord.items():  
+                for key, value in win_record.items():  
                     f.write('%s:%s\n' % (key, value))
         f.close() # closes the file
-        playAgain(Turns, playerOne, AI)
+        play_again(Turns, player_one, AI)
     
-    return Turns, playerOne
+    return Turns, player_one
 
-def isWin():
+def is_win():
     for row in board:
-        if row[0] == row[1] == row[2] and row[0] != "-": # checks if any row is not equal to an empty space
+        if row[0] == row[1] == row[2] and row[0] != "-": 
+            # checks if any row is not equal to an empty space
             return True # somebody won
     
     for column in range(3):
@@ -177,7 +205,7 @@ def isWin():
     
     return False
 
-def main(Turns, playerOne):
+def main(Turns, player_one):
     print("-------Noughts and Crosses-------\n") #title screen
     play = input("Press any key to play or type R to view the win record\n>>> ")
     if play.upper() == "R":
@@ -195,29 +223,34 @@ def main(Turns, playerOne):
             break
         else:
             print("Invalid Option entered, please try again\n")
-    displayBoard()
-    while Turns != 9: # turns repeat 9 times as there are 9 board spaces
-        Turns, playerOne = Turn(Turns, playerOne, AI)
+    display_board()
+    while turns != 9: 
+        # turns repeat 9 times as there are 9 board spaces
+        turns, player_one = turn(turns, player_one, AI)
 
     
-    playAgain(Turns, playerOne, AI) # asks user to play again
+    play_again(turns, player_one, AI) 
+    # asks user to play again
 
-def playAgain(Turns, playerOne, AI):
+def play_again(turns, player_one, AI):
     global board
-    board = [["-","-","-"],["-","-","-"],["-", "-", "-"]] # resets the board
+    board = [["-","-","-"],["-","-","-"],["-", "-", "-"]] 
+    # resets the board
     Turns = 0
 
-    Again = input("Would you like to play again? Type Y or N ") # up to the user to start a new game
+    Again = input("Would you like to play again? Type Y or N ") 
+    # up to the user to start a new game
     
     if Again.upper() == "Y":
-        playerOne = True # restarts the game from player one
-        displayBoard()
-        while Turns != 9:
-            Turns, playerOne = Turn(Turns, playerOne, AI)
+        player_one = True 
+        # restarts the game from player one
+        display_board()
+        while turns != 9:
+            turns, player_one = turn(turns, player_one, AI)
     elif Again.upper() == "N":
         print("Thank you for playing!!")
         exit()
     else:
         
         print("Invalid data entered, please try again")
-main(Turns, playerOne)
+main(turns, player_one)
