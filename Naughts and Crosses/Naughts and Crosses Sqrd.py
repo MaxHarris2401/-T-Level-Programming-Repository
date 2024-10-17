@@ -35,8 +35,6 @@ def display_board(board):
             print("   ".join(" ".join(board[layer][grid][row]) for grid in range(3)))
         print()  # separate layers with a blank line
 
-
-
 def turn(turns, player_one):
     if player_one:
         print("Player 1 (X)'s turn!\n")
@@ -102,22 +100,22 @@ def turn(turns, player_one):
 def is_win():
     for layer in range(3):
         for grid in range(3):
-            for row in board:
-                if row[layer][grid][0] == row[layer][grid][1] == row[layer][grid][2] and row[0] != "-": 
+            for row in board[layer][grid]:
+                if row[0] == row[1] == row[2] and row[0] != "-": 
                     # checks if any row is not equal to an empty space
                     return True # somebody won
-            
-            for column in range(3):
-                if board[layer][grid][0][column] == board[layer][grid][1][column] == board[layer][grid][2][column] and board[layer][grid][0][column] != "-":
+    
+                for column in range(3):
+                    if board[0][column] == board[1][column] == board[2][column] and board[0][column] != "-":
+                        return True # somebody won
+                
+                if board[0][0] == board[1][1] == board[2][2] and board[0][0] != "-":
                     return True # somebody won
-            
-            if board[layer][grid][0][0] == board[layer][grid][1][1] == board[layer][grid][2][2] and board[0][0] != "-":
-                return True # somebody won
-            
-            if board[layer][grid][0][2] == board[layer][grid][1][1] == board[layer][grid][2][0] and board[layer][grid][0][2] != "-": 
-                return True # somebody won
-            
-            return False
+                
+                if board[0][2] == board[1][1] == board[2][0] and board[0][2] != "-": 
+                    return True # somebody won
+                
+                return False
 
 def main(turns, player_one):
     print("-------Noughts and Crosses Squared-------\n")
