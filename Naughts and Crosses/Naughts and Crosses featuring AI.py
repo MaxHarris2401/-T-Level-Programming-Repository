@@ -4,9 +4,9 @@ board = [["-","-","-"],["-","-","-"],["-", "-", "-"]]
 # empty naughts and crosses board
 player_one = True 
 # sets the condition for player one to play first
-Turns = 0
+turns = 0
 
-filename = 'XOwin_record.txt'
+filename = 'XOWinRecord.txt'
 
 f = open(filename, "a") 
 # opens the file to check if it exists, it will create it
@@ -40,17 +40,17 @@ def block_player():
         if column.count("x") == 2 and column.count("-") == 1:
             return column.index("-"), col 
  
-    diagonal1 = [board[0][0], board[1][1], board[2][2]] 
+    diagonal_1 = [board[0][0], board[1][1], board[2][2]] 
     # diagonal victories
-    diagonal2 = [board[0][2], board[1][1], board[2][0]]
+    diagonal_2 = [board[0][2], board[1][1], board[2][0]]
     
-    if diagonal1.count("x") == 2 and diagonal1.count("-") == 1: 
+    if diagonal_1.count("x") == 2 and diagonal_1.count("-") == 1: 
         # if 2 diagonals are occupied by x and one is empty it will play that empty space
-        index = diagonal1.index("-") 
+        index = diagonal_1.index("-") 
         return index, index
     
-    if diagonal2.count("x") == 2 and diagonal2.count("-") == 1:
-        index = diagonal2.index("-") 
+    if diagonal_2.count("x") == 2 and diagonal_2.count("-") == 1:
+        index = diagonal_2.index("-") 
         return index, 2 - index
     
     return None
@@ -67,17 +67,17 @@ def try_win(): # function for AI to try to win 3 in a row
         if column.count("o") == 2 and column.count("-") == 1:
             return column.index("-"), col 
  
-    diagonal1 = [board[0][0], board[1][1], board[2][2]] 
+    diagonal_1 = [board[0][0], board[1][1], board[2][2]] 
     # diagonal victories
-    diagonal2 = [board[0][2], board[1][1], board[2][0]] 
+    diagonal_2 = [board[0][2], board[1][1], board[2][0]] 
     
-    if diagonal1.count("o") == 2 and diagonal1.count("-") == 1: 
+    if diagonal_1.count("o") == 2 and diagonal_1.count("-") == 1: 
         # if 2 diagonals are occupied by o and one is empty it will play that empty space
-        index = diagonal1.index("-") 
+        index = diagonal_1.index("-") 
         return index, index
     
-    if diagonal2.count("o") == 2 and diagonal2.count("-") == 1:
-        index = diagonal2.index("-") 
+    if diagonal_2.count("o") == 2 and diagonal_2.count("-") == 1:
+        index = diagonal_2.index("-") 
         return index, 2 - index
     
     return None
@@ -94,15 +94,15 @@ def turn(turns, player_one, AI):
     if AI == True: # if player set mode is AI
         while True:
             if player_one == True:
-                rowInput = input("Enter a row ")
-                columnInput = input("Enter a column ")
+                row_input = input("Enter a row ")
+                column_input = input("Enter a column ")
                 try: 
                     # checks that the data entered is an integer otherwise asks the user to re enter it
-                    rowInput = int(rowInput)
-                    columnInput = int(columnInput)
+                    row_input = int(row_input)
+                    column_input = int(column_input)
                     try: 
                         # checks that the row and column are in the range of the array or asks you to re enter
-                        board[rowInput][columnInput]
+                        board[row_input][column_input]
                         break 
                     # break the infinite while loop allowing the program to continue as the data entered is valid
                     except:
@@ -112,29 +112,29 @@ def turn(turns, player_one, AI):
             else:
                 move = try_win() # attempt to win first
                 if move:
-                    rowInput, columnInput = move
+                    row_input, column_input = move
                 else:
                     move = block_player() # try to block player
                     if move:
-                        rowInput, columnInput = move
+                        row_input, column_input = move
                     else: # random position
-                        columnInput = random.randint(0,2)
-                        rowInput = random.randint(0,2)
-                if board[rowInput][columnInput] != "-":
+                        column_input = random.randint(0,2)
+                        row_input = random.randint(0,2)
+                if board[row_input][column_input] != "-":
                     print("Invalid")
                 else:
                     break
     elif AI == False: # 2 player mode
         while True:
-            rowInput = input("Enter a row ")
-            columnInput = input("Enter a column ")
+            row_input = input("Enter a row ")
+            column_input = input("Enter a column ")
             try: 
                 # checks that the data entered is an integer otherwise asks the user to re enter it
-                rowInput = int(rowInput)
-                columnInput = int(columnInput)
+                row_input = int(row_input)
+                column_input = int(column_input)
                 try: 
                     # checks that the row and column are in the range of the array or asks you to re enter
-                    board[rowInput][columnInput]
+                    board[row_input][column_input]
                     break 
                 # break the infinite while loop allowing the program to continue as the data entered is valid
                 except:
@@ -142,15 +142,15 @@ def turn(turns, player_one, AI):
             except:
                 print("One or more invalid values entered")
 
-    if board[rowInput][columnInput] != "-": 
+    if board[row_input][column_input] != "-": 
         # checks if the position inputted by the user already contains an x or o
         print("Position already taken")
     else:
         if player_one == True:
-            board[rowInput][columnInput] = "x"
+            board[row_input][column_input] = "x"
             player_one = False
         elif player_one == False:
-            board[rowInput][columnInput] = "o"
+            board[row_input][column_input] = "o"
             player_one = True
 
     turns +=1 # increments turn
@@ -183,9 +183,9 @@ def turn(turns, player_one, AI):
                 for key, value in win_record.items():  
                     f.write('%s:%s\n' % (key, value))
         f.close() # closes the file
-        play_again(Turns, player_one, AI)
+        play_again(turns, player_one, AI)
     
-    return Turns, player_one
+    return turns, player_one
 
 def is_win():
     for row in board:
@@ -205,7 +205,7 @@ def is_win():
     
     return False
 
-def main(Turns, player_one):
+def main(turns, player_one):
     print("-------Noughts and Crosses-------\n") #title screen
     play = input("Press any key to play or type R to view the win record\n>>> ")
     if play.upper() == "R":
@@ -236,7 +236,7 @@ def play_again(turns, player_one, AI):
     global board
     board = [["-","-","-"],["-","-","-"],["-", "-", "-"]] 
     # resets the board
-    Turns = 0
+    turns = 0
 
     Again = input("Would you like to play again? Type Y or N ") 
     # up to the user to start a new game
