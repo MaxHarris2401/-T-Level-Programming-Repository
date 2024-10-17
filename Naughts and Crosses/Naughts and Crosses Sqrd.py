@@ -19,6 +19,9 @@ player_one = True
 turns = 0
 filename = 'XOSquaredWinRecord.txt'
 
+f = open(filename, "a") # opens the file to check if it exists, it will create it
+f.close()
+
 def dict_file(filename): # opens the file as a dictionary
     dict = {}
     with open(filename, 'r') as file:
