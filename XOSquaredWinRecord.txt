@@ -14,3 +14,5 @@
 13:Player 1 Win
 14:Player 1 Win
 15:Player 1 Win
+16:Player 1 Win
+17:Player 1 Win

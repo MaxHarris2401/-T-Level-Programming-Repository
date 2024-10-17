@@ -75,50 +75,38 @@ def turn(turns, player_one):
     turns +=1 # increments turn
     display_board(board)
     
-    if is_win():
+    layer, grid, row, column = is_win_small()
+
+    if is_win_small():
         if player_one:
-            print("\nPlayer 2 (O) wins!")
-            if len(win_record) == 0: # checks dictionaries length is empty
-                win_record.update({0: "Player 2 Win"}) # writes to the record that this was a player 2 win to key 0
-            else:
-                win_record.update({len(win_record): "Player 2 Win"}) # writes to the record that this was a player 2 win
-            with open(filename, 'w') as f:  
-                for key, value in win_record.items():  
-                    f.write('%s:%s\n' % (key, value))
-        # no file written to if the game is a draw
+            board[layer][grid] == ["-", " ", "-"], [" ", "-", " "], ["-", " ", "-"]
         else:
-            print("\nPlayer 1 (X) wins!")
-            if len(win_record) == 0: # checks dictionaries length is empty
-                win_record.update({0: "Player 1 Win"}) # writes to the record that this was a player 1 win to the key 0
-            else:
-                win_record.update({len(win_record): "Player 1 Win"}) # writes to the record that this was a player 1 win
-            with open(filename, 'w') as f:  
-                for key, value in win_record.items():  
-                    f.write('%s:%s\n' % (key, value))
-        f.close() # closes the file
-        play_again(turns, player_one)
+            print("chees")
+    
+    
     
     return turns, player_one
 
-def is_win():
+def is_win_small():
     for layer in range(3):
         for grid in range(3):
             for row in board[layer][grid]:
+                print(row)
                 if row[0] == row[1] == row[2] and row[0] != "-": 
                     # checks if any row is not equal to an empty space
                     return True # somebody won
     
                 for column in range(3):
-                    if board[0][column] == board[1][column] == board[2][column] and board[0][column] != "-":
+                    if board[layer][grid][0][column] == board[layer][grid][1][column] == board[layer][grid][2][column] and board[layer][grid][0][column] != "-":
                         return True # somebody won
-                
-                if board[0][0] == board[1][1] == board[2][2] and board[0][0] != "-":
+
+                if board[layer][grid][0][0] == board[layer][grid][1][1] == board[layer][grid][2][2] and board[layer][grid][0][0] != "-":
                     return True # somebody won
                 
-                if board[0][2] == board[1][1] == board[2][0] and board[0][2] != "-": 
+                if board[layer][grid][0][2] == board[layer][grid][1][1] == board[layer][grid][2][0] and board[layer][grid][0][2] != "-": 
                     return True # somebody won
                 
-                return False
+                return False, layer, grid, row, column
 
 def main(turns, player_one):
     print("-------Noughts and Crosses Squared-------\n")
