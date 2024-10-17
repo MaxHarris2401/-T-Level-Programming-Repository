@@ -5,3 +5,7 @@
 4:Player 1 Win
 5:Player 1 Win
 6:Player 1 Win
+7:Player 1 Win
+8:Player 1 Win
+9:Player 1 Win
+10:Player 1 Win
