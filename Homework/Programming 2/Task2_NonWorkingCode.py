@@ -7,8 +7,8 @@
 def opening ():
     print('#####################################')
     print('Welcome to the investment quote system')
-        print('')
-        print('Please enter your name')
+    print('')
+    print('Please enter your name')
     opening.name = input()
     
     print('Please enter your Address')
@@ -17,10 +17,15 @@ def opening ():
     print ('Please eneter your telephone number')
     opening.phone = input()
     
-    print ('How much would you like to invest per month (£)?')
-    opening.investSum = input()
-    
-
+    while True:
+        print ('How much would you like to invest per month (£)?')
+        opening.investSum = input()
+        if opening.investSum.isdigit():
+            opening.investSum = int(opening.investSum)
+            break
+        else:
+            print("Invalid data type entered, please try again")
+        
 def options ():
     print('#####################################')
     print('There are two types of investment available:')
@@ -40,7 +45,7 @@ def options ():
     if option == '1':
         savingsMain()
     else:
-        stockMain()
+        stocksMain()
         
 
 def savingsMain():
