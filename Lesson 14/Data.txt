@@ -5,3 +5,21 @@ Qualitative data:
 Quantitative data
     - Numerical data
 Information = data + structure + context + meaning
+Information - structure
+    - How information is presented
+    - e.g dates, 24/04/2017 would have the structure NNNNNN (N meaning number)
+    - or post codes which would be LLNN NLL (L meaning letter)
+Information - context
+    - The environment that we know to make sense of the data
+    - 15, cabbages, rabbits
+    - Means nothing until put into context
+    - 15 cabbages were planted but all eaten by rabbits.
+Information
+    - The meaning ofdata is that it is in the correct structure and context
+    - Information is in context, data can not be
+    - Information is structured data which needs to be processed
+Task
+    - Knowledge is the ability to use information to form judgements and assessments
+    - Information is data that has been processed with context and structure
+    - Data is raw facts and figures that have not been processed
+    - Example of Knowledge is wisdom
