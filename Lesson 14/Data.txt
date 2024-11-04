@@ -1,0 +1,7 @@
+Data is raw, unprocessed data
+Qualitative data:
+    - Non-numerical data
+    - e.g Opinions, interviews, written questions
+Quantitative data
+    - Numerical data
+Information = data + structure + context + meaning
