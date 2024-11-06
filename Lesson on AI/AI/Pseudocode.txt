@@ -1,0 +1,34 @@
+BEGIN
+
+    // Import necessary libraries:
+    // Import pandas library for data handling
+    // Import linear_model from sklearn for linear regression
+    // Import StandardScaler from sklearn.preprocessing for data standardisation
+
+    SET scale TO StandardScaler instance
+
+    // Load the dataset from a CSV file
+    SET df TO data from "data.csv" loaded with pandas
+
+    // Select features and target for the model
+    SET X TO columns 'Weight' and 'Volume' from df
+    SET y TO column 'CO2' from df
+
+    // Scale the features in X
+    APPLY fit_transform on X using scale
+    STORE result in scaledX
+
+    // Initialise and train the linear regression model
+    SET regr TO LinearRegression model instance
+    FIT regr using scaledX and y
+
+    // Scale new data point for prediction
+    SET scaled TO transformed values of data point [2300, 1.3] using scale
+
+    // Predict CO2 emission for the scaled data
+    SET predictedCO2 TO result of predicting with regr using scaled[0]
+
+    // Output the predicted CO2 value
+    OUTPUT predictedCO2
+
+END
