@@ -6,7 +6,7 @@ root = tk.Tk()
 root.title("24-Hour Digital Clock")
 
 # Set up the clock label with a large font
-clock_label = tk.Label(root, font=("Helvetica", 48), background="black", foreground="white")
+clock_label = tk.Label(root, font=("Comic Sans MS", 48), background="red", foreground="blue")
 clock_label.pack(anchor="center")
 
 # Function to update the time on the clock
