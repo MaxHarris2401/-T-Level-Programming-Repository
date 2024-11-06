@@ -1,0 +1,3 @@
+Erroneous data - wrong data that should not work
+Boundary data - when you have a condition that's checking
+Valid data - data that should work
