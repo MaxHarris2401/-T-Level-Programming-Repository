@@ -5,13 +5,13 @@ def main():
     key_press_menu = input(">>> ")
     setup_board()
     display_board()
+    player_turn()
 
 def setup_board():
     global board
     global level
     for i in range(10):
         board.append(["-", "-", "-", "-", "-", "-", "-", "-", "-", "-"])
-    if (level==1):
 
 def display_board():
     print("  0   1   2   3   4   5   6   7   8   9")
@@ -20,7 +20,5 @@ def display_board():
         print(number, " | ".join(row))
         
 def player_turn():
-    col = int(input("Please enter a column"))
-    if col 
-    row = int(input("Please enter a row"))
+    
 main()
