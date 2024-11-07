@@ -15,12 +15,20 @@ def setup_board():
     global board
     global empty_board
     global level
-    level = int(input("Enter a level (1-3): "))
-    if level < 1 or level > 3:
-        print("Invalid value entered, try again")
+    while True:
+        level = input("Enter a level (1-3): ")
+        try:
+            level = int(level)
+            if level < 1 or level > 3:
+                print("Invalid value entered, try again")
+            else:
+                break
+        except:
+            print("Invalid data type entered, please try again")
     for i in range(10):
         board.append(["-", "-", "-", "-", "-", "-", "-", "-", "-", "-"])
-        empty_board.append(["-", "-", "-", "-", "-", "-", "-", "-", "-", "-"])
+        empty_board.append(["-", "-", "-", "-", "-", "-", "-", "-", "-", "-"]) # empty board to be displayed so the user has to play the game
+
     if level == 1:
         count = 0
         for i in range(5):
@@ -105,20 +113,25 @@ def player_turn():
                     break
             except:
                 print("Invalid data type entered, please try again")
+
         if board[int_col][int_row] == "A" or board[int_col][int_row] == "B" or \
         board[int_col][int_row] == "C" or board[int_col][int_row] == "S":
             print("Hit")
-            board[int_col][int_row] = "*"
+            board[int_col][int_row] = "*" # changed so you can't hit the same ship twice
+            empty_board[int_col][int_row] = "*" # changed so you can see you've hit that ship
             hits+=1
             turns+=1
         else:
             print("Miss")
-            board[int_col][int_row] = "."
+            board[int_col][int_row] = "." # changed so you can't miss the same ship twice
+            empty_board[int_col][int_row] = "." # changed so you can see you've missed that ship
             turns+=1
         display_board()
+
         if game_over():
             print("Game over as number of turns has exceeded")
             exit()
+            
         if has_won():
             print("Game over as player won")
             exit()
