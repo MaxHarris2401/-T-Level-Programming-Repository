@@ -85,7 +85,8 @@ def setup_board():
 
 def display_board():
     print("  0   1   2   3   4   5   6   7   8   9")
-    for number, row in enumerate(empty_board):
+    for number, row in enumerate(empty_board): 
+        # gets the number of each array and assigns it to the variable number
         print(number, " | ".join(row))
         print("   -+---+---+---+---+---+---+---+---+-")
         
@@ -131,7 +132,7 @@ def player_turn():
         if game_over():
             print("Game over as number of turns has exceeded")
             exit()
-            
+
         if has_won():
             print("Game over as player won")
             exit()
