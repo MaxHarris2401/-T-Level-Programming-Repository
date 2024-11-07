@@ -75,7 +75,7 @@ def turn(turns, player_one):
     turns +=1 # increments turn
     display_board(board)
     
-    layer, grid = is_win_small()
+    layer, grid, row, column = is_win_small()
 
     if is_win_small():
         if player_one:
@@ -91,6 +91,7 @@ def is_win_small():
     for layer in range(3):
         for grid in range(3):
             for row in board[layer][grid]:
+                print(row)
                 if row[0] == row[1] == row[2] and row[0] != "-": 
                     # checks if any row is not equal to an empty space
                     return True # somebody won

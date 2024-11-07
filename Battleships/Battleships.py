@@ -1,5 +1,7 @@
+import random
+
 board = [] # initialise board array
-empty_board = []
+empty_board = [] # initialise empty board that will only change when a hit sinks a ship or misses
 level = 1
 hits = 0
 turns = 0
@@ -15,19 +17,37 @@ def setup_board():
     global board
     global empty_board
     global level
-    while True:
-        level = input("Enter a level (1-3): ")
-        try:
-            level = int(level)
-            if level < 1 or level > 3:
-                print("Invalid value entered, try again")
-            else:
-                break
-        except:
-            print("Invalid data type entered, please try again")
     for i in range(10):
         board.append(["-", "-", "-", "-", "-", "-", "-", "-", "-", "-"])
-        empty_board.append(["-", "-", "-", "-", "-", "-", "-", "-", "-", "-"]) # empty board to be displayed so the user has to play the game
+        empty_board.append(["-", "-", "-", "-", "-", "-", "-", "-", "-", "-"]) 
+        # empty board to be displayed so the user has to play the game properly
+    while True:
+        level = input("Enter a level (1-3) or type P for procedural generation: ")
+        if level == 1 or level == 2 or level == 3:
+            try:
+                level = int(level) # checks if level can be turned to an int
+                if level < 1 or level > 3:
+                    print("Invalid value entered, try again")
+                else:
+                    break
+            except:
+                print("Invalid data type entered, please try again")
+        elif level.upper() == "P":
+            print("Procedural Generation")
+            for i in range(4): # different letter each time the for loop cycles
+                letter_val = (i % 4) + 1  
+                if letter_val == 1:
+                    letter = "A"
+                elif letter_val == 2:
+                    letter = "B"
+                elif letter_val == 3:
+                    letter = "C"
+                elif letter_val == 4:
+                    letter = "S"
+                place_ship(random.randint(3,5), letter)
+            break
+        else:
+            print("Invalid option entered, please try again")
 
     if level == 1:
         count = 0
@@ -85,7 +105,7 @@ def setup_board():
 
 def display_board():
     print("  0   1   2   3   4   5   6   7   8   9")
-    for number, row in enumerate(empty_board): 
+    for number, row in enumerate(board): 
         # gets the number of each array and assigns it to the variable number
         print(number, " | ".join(row))
         print("   -+---+---+---+---+---+---+---+---+-")
@@ -94,7 +114,7 @@ def player_turn():
     global hits
     global turns
     while game_over != True:
-        while True:
+        while True: # infinite while loop that breaks when correct data type entered
             str_col = input("Please enter a column (0-9): ")
             try:
                 int_col = int(str_col)
@@ -104,7 +124,7 @@ def player_turn():
                     break
             except:
                 print("Invalid data type entered, please try again")
-        while True:
+        while True: # infinite while loop that breaks when correct data type entered
             str_row = int(input("Please enter a row (0-9): "))
             try:
                 int_row = int(str_row)
@@ -150,5 +170,32 @@ def game_over():
         return True
     else:
         return False
+
+def place_ship(ship_length, ship_letter):
+    count = 0
+    col_pos = random.randint(0,9)
+    row_pos = random.randint(0,9)
+    axis_pos = random.randint(0,1)
+    print(col_pos)
+    print(row_pos)
+    print(axis_pos)
+
+    if board[col_pos][row_pos] != "-":
+        print("Invalid position")
+    else:
+        if axis_pos == 0:
+            for i in range(ship_length):
+                board[col_pos+count][row_pos] = ship_letter
+                if col_pos != 9:
+                    count += 1
+                else:
+                    count +- 1
+        elif axis_pos == 1:
+            for i in range(ship_length):
+                board[col_pos][row_pos+count] = ship_letter
+                if row_pos != 9:
+                    count += 1
+                else:
+                    count +- 1
 
 main()
