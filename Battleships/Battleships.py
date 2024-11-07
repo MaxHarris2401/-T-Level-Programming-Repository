@@ -172,30 +172,34 @@ def game_over():
         return False
 
 def place_ship(ship_length, ship_letter):
-    count = 0
-    col_pos = random.randint(0,9)
-    row_pos = random.randint(0,9)
-    axis_pos = random.randint(0,1)
-    print(col_pos)
-    print(row_pos)
-    print(axis_pos)
-
-    if board[col_pos][row_pos] != "-":
-        print("Invalid position")
-    else:
-        if axis_pos == 0:
-            for i in range(ship_length):
-                board[col_pos+count][row_pos] = ship_letter
-                if col_pos != 9:
-                    count += 1
-                else:
-                    count +- 1
-        elif axis_pos == 1:
-            for i in range(ship_length):
-                board[col_pos][row_pos+count] = ship_letter
-                if row_pos != 9:
-                    count += 1
-                else:
-                    count +- 1
+    col_pos = random.randint(0,9) # random column position
+    row_pos = random.randint(0,9) # random row position
+    axis_pos = random.randint(0,1) # 0 is horizontal 1 is vertical
+    while True: # check empty spaces
+        if board[col_pos][row_pos] != "-":
+            col_pos = random.randint(0,9)
+            row_pos = random.randint(0,9)
+        else:
+            break
+    if axis_pos == 0: # horizontal
+        while True:
+            if col_pos + ship_length > 10:
+                col_pos = random.randint(0,9)
+                row_pos = random.randint(0,9)
+            else:
+                break
+        for i in range(ship_length):
+            if board[col_pos][row_pos] != "-":
+                board[col_pos+i][row_pos] = ship_letter
+    elif axis_pos == 1: # vertical
+        while True:
+            if row_pos + ship_length > 10:
+                col_pos = random.randint(0,9)
+                row_pos = random.randint(0,9)
+            else:
+                break
+        for i in range(ship_length):
+            board[col_pos][row_pos+i] = ship_letter
+ 
 
 main()
