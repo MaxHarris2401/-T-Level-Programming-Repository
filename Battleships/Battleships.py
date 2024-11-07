@@ -20,6 +20,7 @@ def setup_board():
         print("Invalid value entered, try again")
     for i in range(10):
         board.append(["-", "-", "-", "-", "-", "-", "-", "-", "-", "-"])
+        empty_board.append(["-", "-", "-", "-", "-", "-", "-", "-", "-", "-"])
     if level == 1:
         count = 0
         for i in range(5):
@@ -76,7 +77,7 @@ def setup_board():
 
 def display_board():
     print("  0   1   2   3   4   5   6   7   8   9")
-    for number, row in enumerate(board):
+    for number, row in enumerate(empty_board):
         print(number, " | ".join(row))
         print("   -+---+---+---+---+---+---+---+---+-")
         
