@@ -1,0 +1,81 @@
+Data Types
+    - Boolean
+        - Only 2 choices
+            - True or False
+            - Yes or No
+            - 1 or 00
+    - Strings
+        - Stores alphanumeric combinations and text
+        - Group of characters stored together
+    - Character
+        - Stores a single character
+            - Letter
+            - Number
+            - Symbol
+        - e.g $
+        - Not actually used in python as it's a string of 1
+    - Dates
+        - A date with a defined structure
+        - 12/02/2025
+    - Integer
+        - Whole numbers, positive or negative
+        - 1430
+        - -49
+    - Real
+        - A number with or without a decimal place, can be positive or negative
+            - 12.30
+            - -3424
+- If data is stored within the incorrect format it can be problematic to process or analyse
+Data Formats
+    - ASCII
+        - American standard code for information
+        - 7 bit character set containing 128 characters.
+            - Numbers, all upper and lowercase English letters and some special characters
+        - All digital devices use character sets, which are based on ASCII
+        - ASCII is used to translate computer text to human text
+        - My name in ASCII 77, 65, 88
+    - Unicode
+        - ASCII has been mostly replaced by Unicode
+        - Has support for non-english alphabets.
+    - CSV
+        - Comma seperated values
+        - CSV is a format where data is arranged in columns, where columns are delimited (seperated) by a comma ,
+        - Each line will represent a complete record, with data stored as plain text
+        - All records should have the same number of fields in the same order
+        - Can be used to transfer data between different applications
+    - JSON
+    - XML
+        - Designed to transport data, it is a W3C recommendation
+        - It's a mark-up format like HTML
+        - For carying data between devices and people
+    - Fixed width text files
+        - A file format where things are arranged in columns, but instead of having a character delimiting the split, every row is exactly the same length
+        - The format is specified by column widths, pad character and left/right alignment
+        - Which column has a set length
+        - Fixed width files should be viewed with a fixed width font.
+File based structure and Directory based structure
+File based structure
+    - You have a file
+    - Per software package
+    - You add data to it, or insert it at the correct point
+    - Advantages:
+        - No extra storage space needed for directory, so storage overheads are lowercase
+        - Easy to add records as they can be appended to the end of the file or their correct location in file
+        - Collisons cannot occur
+        - Allows for us to sequentially process all of these records
+    - Disadvantages: 
+        - Access to records is sequential so on average the access time will be longer
+Directory based structure
+    - The way that files and folders are displayed to the user
+    - Usually in the format of hierarchical tree structure
+    - Can make it easier for the end user to locate files as the folder structure should be logical
+    - Advantages:
+        - Faster access times as records/buckets can be accessed in a direct manner using the file directory
+        - Directories can be layered to speed up access times further
+    - Disadvantages
+        - Storage overheads larger as the directory must be stored
+        - Collisions will occur as number of records increase, resulting in more use of overflow areas and slower processing times
+Question (12 marks)
+File based directories would be useful for the system because it would make it easier to add new responses to the questionnaires. However, it also means the access to the records is sequential so the time it takes to access the data will be much longer.
+On the other hand, a directory based system may be useful to help the company locate the records as they can be accessed directly within the directories. However, they may find storage overheads might be increased in size. Also, collisions may occur as the number of records increase.
+However, the increased usefulness of a hierarchial tree structure means that it may be more useful for the company to use a directory based structure, despite the benefits of the file based structure.
