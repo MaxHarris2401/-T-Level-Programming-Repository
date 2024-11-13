@@ -178,8 +178,12 @@ def place_ship(ship_length, ship_letter):
     print(col_pos)
     print(row_pos)
     print(axis_pos)
-    if board[col_pos][row_pos] != "-":
-        print("Invalid pos")
+    while True:
+        if board[col_pos][row_pos] != "-":
+            col_pos = random.randint(0,9)
+            row_pos = random.randint(0,9)
+        else:
+            break
     if axis_pos == 0: # horizontal
         while True:
             if col_pos + ship_length > 10:
