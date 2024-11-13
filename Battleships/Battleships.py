@@ -7,12 +7,32 @@ hits = 0
 turns = 0
 
 def main():
-    print("----------Battleships-----------\nPress any key to play")
-    key_press_menu = input(">>> ")
-    setup_board()
-    display_board()
-    player_turn()
-
+    print("----------Battleships-----------\n1. New Game\n2. Help Screen\n3. Quit")
+    while True:
+        key_press_menu = input(">>> ")
+        if key_press_menu == "1":
+            setup_board()
+            display_board()
+            player_turn()
+            break
+        elif key_press_menu == "2":
+            print("To play, select a type of generation to use as the enemy board, between 1-3 or P for procedural generation\nThen, you must guess the position of the enemy ships using the grid (between 0-9 on rows or columns) and try to sink the entirety of the ship's length\nOnce you have taken out all of the 5 enemy ships, you win\nOtherwise, you have 15 turns to win the game and if that number is exceeded the game will be over")
+            key_press_help = input("Would you like to continue?\n>>> ")
+            main()
+        elif key_press_menu == "3":
+            while True:
+                exit_check = input("Are you sure you want to quit? Type Y or N\n>>> ")
+                if exit_check.upper() == "Y":
+                    print("Thanks for playing!")
+                    exit()
+                    break
+                    
+                elif exit_check.upper() == "N":
+                    main()
+                    break
+                else:
+                    print("Invalid option entered, please try again")
+            
 def setup_board():
     global board
     global empty_board
@@ -24,14 +44,7 @@ def setup_board():
     while True:
         level = input("Enter a level (1-3) or type P for procedural generation: ")
         if level == "1" or level == "2" or level == "3":
-            try:
-                level = int(level) # checks if level can be turned to an int
-                if level < 1 or level > 3:
-                    print("Invalid value entered, try again")
-                else:
-                    break
-            except:
-                print("Invalid data type entered, please try again")
+            print("Level",level)
         elif level.upper() == "P":
             print("Procedural Generation")
             for i in range(4): # different letter each time the for loop cycles
@@ -49,7 +62,7 @@ def setup_board():
         else:
             print("Invalid option entered, please try again")
 
-    if level == 1:
+    if level == "1":
         count = 0
         for i in range(5):
             board[3][3+count] = "A"
@@ -67,7 +80,7 @@ def setup_board():
             board[6][7+count] = "C"
             count = count+1
     
-    elif level == 2:
+    elif level == "2":
         count = 0
         for i in range(5):
             board[5+count][0] = "A"
@@ -85,7 +98,7 @@ def setup_board():
             board[1+count][9] = "C"
             count = count+1
     
-    elif level == 3:
+    elif level == "3":
         count = 0
         for i in range(5):
             board[2+count][8] = "A"
@@ -137,20 +150,22 @@ def player_turn():
 
         if board[int_col][int_row] == "A" or board[int_col][int_row] == "B" or \
         board[int_col][int_row] == "C" or board[int_col][int_row] == "S":
-            print("Hit")
+            register = "Hit"
             board[int_col][int_row] = "*" # changed so you can't hit the same ship twice
             empty_board[int_col][int_row] = "*" # changed so you can see you've hit that ship
             hits+=1
             turns+=1
         else:
-            print("Miss")
+            register = "Miss"
             board[int_col][int_row] = "." # changed so you can't miss the same ship twice
             empty_board[int_col][int_row] = "." # changed so you can see you've missed that ship
             turns+=1
+
         display_board()
+        print(register)
 
         if game_over():
-            print("Game over as number of turns has exceeded")
+            print("Game over as number of turns has exceeded 15")
             exit()
 
         if has_won():
@@ -175,46 +190,24 @@ def place_ship(ship_length, ship_letter):
     col_pos = random.randint(0,9) # random column position
     row_pos = random.randint(0,9) # random row position
     axis_pos = random.randint(0,1) # 0 is horizontal 1 is vertical
-    print(col_pos)
-    print(row_pos)
-    print(axis_pos)
-    while True:
+
+    while True: # checks the length of ship isn't bigger than the index
+        if col_pos + ship_length > 10:
+            col_pos = random.randint(0,9) # if it is create a new random position
+            row_pos = random.randint(0,9)
+        elif row_pos + ship_length > 10:
+            col_pos = random.randint(0,9) 
+            row_pos = random.randint(0,9)
         if board[col_pos][row_pos] != "-":
-            col_pos = random.randint(0,9)
+            col_pos = random.randint(0,9) # if it is create a new random position
             row_pos = random.randint(0,9)
         else:
             break
-    if axis_pos == 0: # horizontal
-        while True:
-            if col_pos + ship_length > 10:
-                col_pos = random.randint(0,9)
-                row_pos = random.randint(0,9)
-            else:
-                break
-        for i in range(ship_length):
+    
+    for i in range(ship_length):
+        if axis_pos == 0: # horizontal
             board[col_pos+i][row_pos] = ship_letter
-    elif axis_pos == 1: # vertical
-        while True:
-            if row_pos + ship_length > 10:
-                col_pos = random.randint(0,9)
-                row_pos = random.randint(0,9)
-            else:
-                break
-        for i in range(ship_length):
+        else:
             board[col_pos][row_pos+i] = ship_letter
-            
-def has_won():
-    global hits
-    if hits == 15:
-        return True
-    else:
-        return False
-
-def game_over():
-    global turns
-    if turns == 20:
-        return True
-    else:
-        return False
 
 main()
