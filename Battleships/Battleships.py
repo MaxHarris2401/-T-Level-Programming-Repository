@@ -23,7 +23,7 @@ def setup_board():
         # empty board to be displayed so the user has to play the game properly
     while True:
         level = input("Enter a level (1-3) or type P for procedural generation: ")
-        if level == 1 or level == 2 or level == 3:
+        if level == "1" or level == "2" or level == "3":
             try:
                 level = int(level) # checks if level can be turned to an int
                 if level < 1 or level > 3:
@@ -172,30 +172,51 @@ def game_over():
         return False
 
 def place_ship(ship_length, ship_letter):
-    count = 0
-    col_pos = random.randint(0,9)
-    row_pos = random.randint(0,9)
-    axis_pos = random.randint(0,1)
+    col_pos = random.randint(0,9) # random column position
+    row_pos = random.randint(0,9) # random row position
+    axis_pos = random.randint(0,1) # 0 is horizontal 1 is vertical
     print(col_pos)
     print(row_pos)
     print(axis_pos)
-
-    if board[col_pos][row_pos] != "-":
-        print("Invalid position")
+    while True: # check empty spaces
+        if board[col_pos][row_pos] != "-":
+            col_pos = random.randint(0,9)
+            row_pos = random.randint(0,9)
+            print("Invalid pos")
+        else:
+            break
+    if axis_pos == 0: # horizontal
+        while True:
+            if col_pos + ship_length > 10:
+                col_pos = random.randint(0,9)
+                row_pos = random.randint(0,9)
+            else:
+                break
+        for i in range(ship_length):
+            if board[col_pos][row_pos] != "-":
+                board[col_pos+i][row_pos] = ship_letter
+    elif axis_pos == 1: # vertical
+        while True:
+            if row_pos + ship_length > 10:
+                col_pos = random.randint(0,9)
+                row_pos = random.randint(0,9)
+            else:
+                break
+        for i in range(ship_length):
+            board[col_pos][row_pos+i] = ship_letter
+            
+def has_won():
+    global hits
+    if hits == 15:
+        return True
     else:
-        if axis_pos == 0:
-            for i in range(ship_length):
-                board[col_pos+count][row_pos] = ship_letter
-                if col_pos != 9:
-                    count += 1
-                else:
-                    count +- 1
-        elif axis_pos == 1:
-            for i in range(ship_length):
-                board[col_pos][row_pos+count] = ship_letter
-                if row_pos != 9:
-                    count += 1
-                else:
-                    count +- 1
+        return False
+
+def game_over():
+    global turns
+    if turns == 20:
+        return True
+    else:
+        return False
 
 main()
