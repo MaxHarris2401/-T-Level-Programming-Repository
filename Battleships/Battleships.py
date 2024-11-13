@@ -178,13 +178,8 @@ def place_ship(ship_length, ship_letter):
     print(col_pos)
     print(row_pos)
     print(axis_pos)
-    while True: # check empty spaces
-        if board[col_pos][row_pos] != "-":
-            col_pos = random.randint(0,9)
-            row_pos = random.randint(0,9)
-            print("Invalid pos")
-        else:
-            break
+    if board[col_pos][row_pos] != "-":
+        print("Invalid pos")
     if axis_pos == 0: # horizontal
         while True:
             if col_pos + ship_length > 10:
@@ -193,8 +188,7 @@ def place_ship(ship_length, ship_letter):
             else:
                 break
         for i in range(ship_length):
-            if board[col_pos][row_pos] != "-":
-                board[col_pos+i][row_pos] = ship_letter
+            board[col_pos+i][row_pos] = ship_letter
     elif axis_pos == 1: # vertical
         while True:
             if row_pos + ship_length > 10:
