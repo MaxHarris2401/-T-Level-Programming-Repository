@@ -1,0 +1,5 @@
+df.columns returns the index of all the columns in a dataframe
+df.iloc selects specifically integer data from a dataframe
+df[2:8] get everything between 2 and 8
+df[ :] prints the whole dataframe
+df.iloc[ : -4 , : ] get everything before negative 4

@@ -11,3 +11,10 @@ Accessing data from a dataframe
     - df.loc['room'] or df.loc['room','region']
     - .iloc is used for selecting data via an integer
     - Df.iloc[0] or df.iloc[[1,2,4]]
+- Pandas.concat is used to add two dataframes together which can be used to join like in SQL
+- Dataframe.dropna(inplace=True) removes values that are missing
+    - Inplace means that it alters the dataframe rather than requiring a new one e.g dataframe2 = dataframe.dropna()
+- Dataframe.mean() returns the mean values over the request axis
+- To access one column
+- Dataframe['column_name']
+- value_counts() is a groupby, will count how many of each thing exist in a series/column
