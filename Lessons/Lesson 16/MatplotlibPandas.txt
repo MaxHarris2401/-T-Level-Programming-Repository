@@ -6,3 +6,8 @@ Pandas:
     - Good for handling sets of data
     - Handling missing data
     - Time series data
+Accessing data from a dataframe
+    - .loc is for selecting data from a dataframe, you can get a single or an array of labels
+    - df.loc['room'] or df.loc['room','region']
+    - .iloc is used for selecting data via an integer
+    - Df.iloc[0] or df.iloc[[1,2,4]]
