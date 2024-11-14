@@ -1,0 +1,8 @@
+Pandas is a data science library, external of python and therefore needs to be manually installed.
+Matplotlib is a very powerful library, but is very complicated to use so we can use pandas to interract with it.
+Pandas:
+    - Living in a data frame object, they work like 2d arrays, where columns are named and statistical functions can be applied.
+    - Good for data analysis and manipulation
+    - Good for handling sets of data
+    - Handling missing data
+    - Time series data
