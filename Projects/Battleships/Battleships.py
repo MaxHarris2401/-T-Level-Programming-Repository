@@ -1,4 +1,4 @@
-import random
+import random as rng
 
 board = [] # initialise board array
 empty_board = [] # initialise empty board that will only change when a hit sinks a ship or misses
@@ -45,6 +45,7 @@ def setup_board():
         level = input("Enter a level (1-3) or type P for procedural generation: ")
         if level == "1" or level == "2" or level == "3":
             print("Level",level)
+            break
         elif level.upper() == "P":
             print("Procedural Generation")
             for i in range(4): # different letter each time the for loop cycles
@@ -57,64 +58,50 @@ def setup_board():
                     letter = "C"
                 elif letter_val == 4:
                     letter = "S"
-                place_ship(random.randint(3,5), letter)
+                place_ship(rng.randint(3,5), letter)
             break
         else:
             print("Invalid option entered, please try again")
 
     if level == "1":
-        count = 0
         for i in range(5):
-            board[3][3+count] = "A"
-            count = count+1
-        count = 0
+            board[3][3+i] = "A"
+       
         for i in range(4):
-            board[2+count][1] = "B"
-            count = count+1
-        count = 0
+            board[2+i][1] = "B"
+            
         for i in range(3):
-            board[7+count][5] = "S"
-            count = count+1
-        count = 0
+            board[7+i][5] = "S"
+        
         for i in range(3):
-            board[6][7+count] = "C"
-            count = count+1
-    
+            board[6][7+i] = "C"
+            
     elif level == "2":
-        count = 0
         for i in range(5):
-            board[5+count][0] = "A"
-            count = count+1
-        count = 0
+            board[5+i][0] = "A"
+           
         for i in range(4):
-            board[7][2+count] = "B"
-            count = count+1
-        count = 0
+            board[7][2+i] = "B"
+         
         for i in range(3):
-            board[6][3+count] = "S"
-            count = count+1
-        count = 0
+            board[6][3+i] = "S"
+           
         for i in range(3):
-            board[1+count][9] = "C"
-            count = count+1
-    
+            board[1+i][9] = "C"
+          
     elif level == "3":
-        count = 0
         for i in range(5):
-            board[2+count][8] = "A"
-            count = count+1
-        count = 0
+            board[2+i][8] = "A"
+          
         for i in range(4):
-            board[4+count][3] = "B"
-            count = count+1
-        count = 0
+            board[4+i][3] = "B"
+        
         for i in range(3):
-            board[4][5+count] = "S"
-            count = count+1
-        count = 0
+            board[4][5+i] = "S"
+    
         for i in range(3):
-            board[3+count][4] = "C"
-            count = count+1
+            board[3+i][4] = "C"
+        
 
 def display_board():
     print("  0   1   2   3   4   5   6   7   8   9")
@@ -187,27 +174,29 @@ def game_over():
         return False
 
 def place_ship(ship_length, ship_letter):
-    col_pos = random.randint(0,9) # random column position
-    row_pos = random.randint(0,9) # random row position
-    axis_pos = random.randint(0,1) # 0 is horizontal 1 is vertical
+    col_pos = rng.randint(0,9) # random column position
+    row_pos = rng.randint(0,9) # random row position
+    axis_pos = rng.randint(0,1) # 0 is horizontal 1 is vertical
 
     while True: # checks the length of ship isn't bigger than the index
-        if col_pos + ship_length > 10:
-            col_pos = random.randint(0,9) # if it is create a new random position
-            row_pos = random.randint(0,9)
-        elif row_pos + ship_length > 10:
-            col_pos = random.randint(0,9) 
-            row_pos = random.randint(0,9)
-        if board[col_pos][row_pos] != "-":
-            col_pos = random.randint(0,9) # if it is create a new random position
-            row_pos = random.randint(0,9)
+        if axis_pos == 0:
+            if col_pos + ship_length > 10:
+                col_pos = rng.randint(0,9) # if it is create a new random position
+                row_pos = rng.randint(0,9)
+        else:
+            if row_pos + ship_length > 10:
+                col_pos = rng.randint(0,9) 
+                row_pos = rng.randint(0,9)
+        if board[col_pos][row_pos] != "-": # check if pos isn't an empty space
+            col_pos = rng.randint(0,9) # if it is create a new random position
+            row_pos = rng.randint(0,9)
         else:
             break
     
     for i in range(ship_length):
         if axis_pos == 0: # horizontal
             board[col_pos+i][row_pos] = ship_letter
-        else:
+        else: # vertical
             board[col_pos][row_pos+i] = ship_letter
 
 main()
