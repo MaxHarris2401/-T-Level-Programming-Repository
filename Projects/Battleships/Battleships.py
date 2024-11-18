@@ -137,15 +137,15 @@ def player_turn():
 
         if board[int_col][int_row] == "A" or board[int_col][int_row] == "B" or \
         board[int_col][int_row] == "C" or board[int_col][int_row] == "S":
-            register = "Hit"
-            board[int_col][int_row] = "*" # changed so you can't hit the same ship twice
-            empty_board[int_col][int_row] = "*" # changed so you can see you've hit that ship
+            register = "\033[32mHit\033[0m"
+            board[int_col][int_row] = "\033[32m*\033[0m" # changed so you can't hit the same ship twice
+            empty_board[int_col][int_row] = "\033[32m*\033[0m" # changed so you can see you've hit that ship
             hits+=1
             turns+=1
-        else:
-            register = "Miss"
-            board[int_col][int_row] = "." # changed so you can't miss the same ship twice
-            empty_board[int_col][int_row] = "." # changed so you can see you've missed that ship
+        elif board[int_col][int_row] == "-":
+            register = "\033[31mMiss\033[0m"
+            board[int_col][int_row] = "\033[31m.\033[0m" # changed so you can't miss the same ship twice
+            empty_board[int_col][int_row] = "\033[31m.\033[0m" # changed so you can see you've missed that ship
             turns+=1
 
         display_board()
@@ -174,29 +174,35 @@ def game_over():
         return False
 
 def place_ship(ship_length, ship_letter):
-    col_pos = rng.randint(0,9) # random column position
-    row_pos = rng.randint(0,9) # random row position
-    axis_pos = rng.randint(0,1) # 0 is horizontal 1 is vertical
-
     while True: # checks the length of ship isn't bigger than the index
+        col_pos = rng.randint(0,9) # random column position
+        row_pos = rng.randint(0,9) # random row position
+        axis_pos = rng.randint(0,1) # 0 is horizontal 1 is vertical
+        
         if axis_pos == 0:
             if col_pos + ship_length > 10:
-                col_pos = rng.randint(0,9) # if it is create a new random position
-                row_pos = rng.randint(0,9)
+                continue
         else:
             if row_pos + ship_length > 10:
-                col_pos = rng.randint(0,9) 
-                row_pos = rng.randint(0,9)
-        if board[col_pos][row_pos] != "-": # check if pos isn't an empty space
-            col_pos = rng.randint(0,9) # if it is create a new random position
-            row_pos = rng.randint(0,9)
-        else:
-            break
-    
-    for i in range(ship_length):
-        if axis_pos == 0: # horizontal
-            board[col_pos+i][row_pos] = ship_letter
-        else: # vertical
-            board[col_pos][row_pos+i] = ship_letter
+                 continue
+            
+        can_place = True
+        for i in range(ship_length):
+            if axis_pos == 0:  # horizontal
+                if board[row_pos][col_pos + i] != "-":
+                    can_place = False
+                    break
+            else:  # vertical
+                if board[row_pos + i][col_pos] != "-":
+                    can_place = False
+                    break
+        
+        if can_place:
+            for i in range(ship_length):
+                if axis_pos == 0:  # horizontal
+                    board[row_pos][col_pos + i] = ship_letter
+                else:  # vertical
+                    board[row_pos + i][col_pos] = ship_letter
+            break  # exit the loop after placing the ship
 
 main()
