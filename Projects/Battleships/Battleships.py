@@ -138,14 +138,18 @@ def player_turn():
         if board[int_col][int_row] == "A" or board[int_col][int_row] == "B" or \
         board[int_col][int_row] == "C" or board[int_col][int_row] == "S":
             register = "\033[32mHit\033[0m"
-            board[int_col][int_row] = "\033[32m*\033[0m" # changed so you can't hit the same ship twice
-            empty_board[int_col][int_row] = "\033[32m*\033[0m" # changed so you can see you've hit that ship
+            board[int_col][int_row] = "\033[32m*\033[0m" # red text
+            # changed so you can't hit the same ship twice
+            empty_board[int_col][int_row] = "\033[32m*\033[0m" 
+            # changed so you can see you've hit that ship
             hits+=1
             turns+=1
         elif board[int_col][int_row] == "-":
             register = "\033[31mMiss\033[0m"
-            board[int_col][int_row] = "\033[31m.\033[0m" # changed so you can't miss the same ship twice
-            empty_board[int_col][int_row] = "\033[31m.\033[0m" # changed so you can see you've missed that ship
+            board[int_col][int_row] = "\033[31m.\033[0m" # green text
+            # changed so you can't miss the same ship twice
+            empty_board[int_col][int_row] = "\033[31m.\033[0m" 
+            # changed so you can see you've missed that ship
             turns+=1
 
         display_board()
