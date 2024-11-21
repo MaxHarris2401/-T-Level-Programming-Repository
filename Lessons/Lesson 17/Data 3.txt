@@ -1,0 +1,26 @@
+Data Wrangling
+    - The process of taking unorganised raw data an processing it into standardised data to be analysed
+    - Meaning it'll be structured to meet the needs of the organisation.
+6 steps of data Wrangling
+    - Discovery
+    - Structure
+    - Cleansing
+    - Enrichment
+    - Validation
+    - Publishing
+Explain two techniques that are used in data Wrangling
+Cleansing - Cleansing data is hiding and removing errors, inconsistencies, and missing entries from data to increase the quality
+Validation - Checking the accuracy and quality of the source data before using or processing data.
+
+All blank data fields need to be consistently represented as empty
+
+Core functions
+    - All data systems have the same basic functions, how they are used will depend on the data being processed and the desired outcome
+    - Our core functions of a data system are:
+        - Input - for the collection of raw data
+        - Search - Searches can be carried out on the data to meet the needs and requrirements of the organisation
+        - Save - data that's been input into a system can be stored and then used again
+        - Integrate - Different data types and formats can be integrated into a single location, and is used to build full and complete outputs that meet the requirements
+
+        - Organise (Index) - Saved data can be organised and indexed, an index increases speed of searching data, as you wont have to search every record
+        

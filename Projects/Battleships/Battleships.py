@@ -16,7 +16,9 @@ def main():
             player_turn()
             break
         elif key_press_menu == "2":
-            print("To play, select a type of generation to use as the enemy board, between 1-3 or P for procedural generation\nThen, you must guess the position of the enemy ships using the grid (between 0-9 on rows or columns) and try to sink the entirety of the ship's length\nOnce you have taken out all of the 5 enemy ships, you win\nOtherwise, you have 15 turns to win the game and if that number is exceeded the game will be over")
+            print("To play, select a type of generation to use as the enemy board, between 1-3 or P for procedural generation\n \
+                  Then, you must guess the position of the enemy ships using the grid (between 0-9 on rows or columns) and try to sink the entirety of the ship's length\n\
+                  Once you have taken out all of the 5 enemy ships, you win\nOtherwise, you have 15 turns to win the game and if that number is exceeded the game will be over")
             key_press_help = input("Would you like to continue?\n>>> ")
             main()
         elif key_press_menu == "3":
@@ -154,9 +156,13 @@ def player_turn():
 
         display_board()
         print(register)
+        if turns - 20 >= 1:
+            print("You have",str(20 - turns),"hit remaining")
+        else:
+            print("You have",str(20 - turns),"hits remaining")
 
         if game_over():
-            print("Game over as number of turns has exceeded 15")
+            print("Game over as number of turns has exceeded 20")
             exit()
 
         if has_won():
